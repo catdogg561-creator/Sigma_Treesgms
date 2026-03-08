@@ -3,82 +3,72 @@
 <head>
     <title>Sigma_TreesGames | Dr. Donut's Den</title>
     <style>
-        body { background-color: #022c22; color: #ecfdf5; font-family: 'Segoe UI', sans-serif; text-align: center; margin: 0; padding: 0; }
+        body { background-color: #022c22; color: #ecfdf5; font-family: 'Segoe UI', sans-serif; text-align: center; margin: 0; padding: 0; position: relative; min-height: 100vh; }
         
         .header-bar { background-color: #000; padding: 15px; border-bottom: 3px solid #10b981; margin-bottom: 20px; }
         h1 { color: #10b981; margin: 0; font-size: 2.2em; text-shadow: 2px 2px #000; }
 
         /* Icon Gallery */
-        .gallery { 
-            display: flex; flex-wrap: wrap; justify-content: center; 
-            gap: 15px; padding: 20px; background: #064e3b; 
-        }
-        .game-card { 
-            width: 100px; cursor: pointer; transition: 0.3s; 
-            border-radius: 12px; padding: 8px; border: 2px solid transparent;
-        }
+        .gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; padding: 20px; background: #064e3b; }
+        .game-card { width: 90px; cursor: pointer; transition: 0.3s; border-radius: 12px; padding: 8px; border: 2px solid transparent; }
         .game-card:hover { transform: scale(1.1); background: #022c22; border-color: #10b981; }
         .game-card img { width: 100%; border-radius: 10px; margin-bottom: 5px; box-shadow: 0 4px 8px rgba(0,0,0,0.5); }
-        .game-card span { font-size: 0.75em; font-weight: bold; display: block; }
+        .game-card span { font-size: 0.7em; font-weight: bold; display: block; }
+
+        /* Recently Played Section */
+        .recent-section { margin-top: 20px; padding: 10px; background: rgba(0,0,0,0.3); border-top: 1px solid #10b981; }
+        .recent-list { display: flex; justify-content: center; gap: 10px; font-size: 0.8em; color: #10b981; font-weight: bold; }
 
         /* Shrunk Game Box */
-        #game-container {
-            width: 75%; max-width: 700px; height: 400px; 
-            margin: 20px auto; border: 4px solid #059669; 
-            border-radius: 12px; overflow: hidden; background: #000;
-        }
+        #game-container { width: 75%; max-width: 700px; height: 400px; margin: 20px auto; border: 4px solid #059669; border-radius: 12px; overflow: hidden; background: #000; }
         iframe { width: 100%; height: 100%; border: none; }
 
-        .game-controls { margin-top: 10px; display: flex; justify-content: center; gap: 10px; padding-bottom: 40px; }
+        .game-controls { margin-top: 10px; display: flex; justify-content: center; gap: 10px; padding-bottom: 60px; }
         .btn-action { background: #059669; color: white; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; border: none; }
         .btn-tab { background: #1e40af; }
+
+        /* Version Tag Bottom Right */
+        .version-tag { position: fixed; bottom: 10px; right: 15px; color: #059669; font-size: 0.7em; font-weight: bold; }
     </style>
 </head>
-<body>
+<body onload="displayRecent()">
 
     <div class="header-bar">
         <h1>Sigma_TreesGames</h1>
     </div>
 
+    <!-- Main Gallery -->
     <div class="gallery">
-        <!-- Krew.io -->
         <div class="game-card" onclick="changeGame('https://krew.io', 'Krew.io')">
-            <img src="https://githubusercontent.com" onerror="this.src='https://placeholder.com'" alt="Krew">
-            <span>Krew.io</span>
+            <img src="https://placeholder.com" alt="Krew"><span>Krew.io</span>
         </div>
-        <!-- Dashmentry -->
         <div class="game-card" onclick="changeGame('https://dashmetry.com', 'Dashmentry')">
-            <img src="https://placeholder.com" alt="Dash">
-            <span>Dashmentry</span>
+            <img src="https://placeholder.com" alt="Dash"><span>Dashmentry</span>
         </div>
-        <!-- GD Lite -->
         <div class="game-card" onclick="changeGame('https://geometrylitepc.io', 'GD Lite')">
-            <img src="https://placeholder.com" alt="GD">
-            <span>GD Lite</span>
+            <img src="https://placeholder.com" alt="GD"><span>GD Lite</span>
         </div>
-        <!-- Snake -->
-        <div class="game-card" onclick="changeGame('https://littlebigsnake.com/', 'Snake')">
-            <img src="https://placeholder.com" alt="Snake">
-            <span>Snake</span>
+        <div class="game-card" onclick="changeGame('https://littlebigsnake.com', 'Snake')">
+            <img src="https://placeholder.com" alt="Snake"><span>Snake</span>
         </div>
-        <!-- Slope -->
         <div class="game-card" onclick="changeGame('https://y8.com', 'Slope')">
-            <img src="https://placeholder.com" alt="Slope">
-            <span>Slope</span>
+            <img src="https://placeholder.com" alt="Slope"><span>Slope</span>
         </div>
-        <!-- FNAF -->
         <div class="game-card" onclick="changeGame('https://fnaf1.io', 'FNAF')">
-            <img src="https://placeholder.com" alt="FNAF">
-            <span>FNAF</span>
+            <img src="https://placeholder.com" alt="FNAF"><span>FNAF</span>
         </div>
-        <!-- Shell Shockers -->
         <div class="game-card" onclick="changeGame('https://shellshock.io', 'Shell')">
-            <img src="https://placeholder.com" alt="Shell">
-            <span>Shell Shockers</span>
+            <img src="https://placeholder.com" alt="Shell"><span>Shell Shockers</span>
         </div>
     </div>
 
-    <h3 id="current-title" style="color:#10b981; margin-top:20px;">Select a Game Icon Above</h3>
+    <!-- Recently Played Area -->
+    <div class="recent-section">
+        <p style="font-size: 0.9em; margin-bottom: 5px;">RECENTLY PLAYED:</p>
+        <div class="recent-list" id="recentDisplay">None yet...</div>
+    </div>
+
+    <h3 id="current-title" style="color:#10b981; margin-top:20px;">Select a Game</h3>
 
     <div id="game-container">
         <iframe id="main-game" src="about:blank" allow="fullscreen" allowfullscreen></iframe>
@@ -89,16 +79,42 @@
         <button class="btn-action btn-tab" onclick="launchNewTab();">OPEN IN NEW TAB</button>
     </div>
 
+    <!-- Version Tag -->
+    <div class="version-tag">v1.0.4</div>
+
     <script>
         function changeGame(url, name) {
             document.getElementById('main-game').src = url;
             document.getElementById('current-title').innerText = "Playing: " + name;
+            
+            // Handle Recently Played Logic
+            saveRecent(name);
+            
             window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         }
+
+        function saveRecent(name) {
+            let recent = JSON.parse(localStorage.getItem('recentGames')) || [];
+            if (!recent.includes(name)) {
+                recent.unshift(name); // Add to front
+                if (recent.length > 3) recent.pop(); // Keep only last 3
+                localStorage.setItem('recentGames', JSON.stringify(recent));
+            }
+            displayRecent();
+        }
+
+        function displayRecent() {
+            let recent = JSON.parse(localStorage.getItem('recentGames')) || [];
+            if (recent.length > 0) {
+                document.getElementById('recentDisplay').innerText = recent.join(" | ");
+            }
+        }
+
         function launchNewTab() {
             var url = document.getElementById('main-game').src;
             if(url !== "about:blank") window.open(url, '_blank');
         }
+
         function goFullscreen() {
             var elem = document.getElementById("game-container");
             if (elem.requestFullscreen) { elem.requestFullscreen(); }
@@ -107,5 +123,4 @@
     </script>
 </body>
 </html>
-
 
