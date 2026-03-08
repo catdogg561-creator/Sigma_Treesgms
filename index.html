@@ -1,120 +1,111 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Sigma_TreesGames | Dr. Donut's Den</title>
+    <title>Sigma_TreesGames | HQ</title>
     <style>
-        /* Black Header and Forest Green Body */
-        body { 
-            background-color: #022c22; 
-            color: #ecfdf5; 
-            font-family: 'Segoe UI', sans-serif; 
-            text-align: center; 
-            margin: 0; padding: 0; 
-        }
+        body { background-color: #022c22; color: #ecfdf5; font-family: sans-serif; text-align: center; margin: 0; padding: 0; }
         
-        .header-bar {
-            background-color: #000000;
-            padding: 20px 0;
-            border-bottom: 3px solid #10b981;
-            margin-bottom: 20px;
-        }
-
-        h1 { color: #10b981; margin: 0; font-size: 2.5em; text-shadow: 2px 2px #000; }
+        /* Black Header */
+        .header-bar { background-color: #000; padding: 15px; border-bottom: 3px solid #10b981; }
+        h1 { color: #10b981; margin: 0; font-size: 2em; }
         
-        /* Smaller Search Bar */
-        .search-container { margin: 10px 0; }
-        #gameSearch {
-            padding: 10px;
-            width: 250px;
-            border-radius: 20px;
-            border: 2px solid #10b981;
-            background: #064e3b;
-            color: white;
-            outline: none;
+        /* Game Selection Gallery */
+        .gallery { 
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; padding: 20px; 
+            background: #064e3b; margin-bottom: 20px;
         }
+        .game-card { 
+            width: 120px; cursor: pointer; transition: 0.3s; 
+            border: 2px solid transparent; border-radius: 10px; padding: 5px;
+        }
+        .game-card:hover { border-color: #10b981; transform: scale(1.1); background: #022c22; }
+        .game-card img { width: 100%; border-radius: 8px; margin-bottom: 5px; }
+        .game-card span { font-size: 0.8em; font-weight: bold; display: block; }
 
         /* Smaller Game Window */
         #game-container {
-            width: 80%; /* Shrunk from 95% */
-            max-width: 800px;
-            height: 450px; /* Shrunk from 650px */
-            margin: 0 auto;
-            border: 5px solid #059669;
-            border-radius: 15px;
-            overflow: hidden;
-            background: #000;
+            width: 80%; max-width: 800px; height: 450px; 
+            margin: 0 auto; border: 5px solid #059669; border-radius: 15px;
+            overflow: hidden; background: #000;
         }
         iframe { width: 100%; height: 100%; border: none; }
 
-        /* Controls Area Under Game */
-        .game-controls {
-            margin-top: 15px;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
-
+        /* Controls Under Game */
+        .controls { margin-top: 15px; display: flex; justify-content: center; gap: 10px; padding-bottom: 50px; }
         .btn { 
-            background: #059669; color: white; padding: 10px 20px; 
-            text-decoration: none; border-radius: 8px; font-weight: bold;
-            cursor: pointer; border: none; font-size: 0.9em;
+            background: #059669; color: white; padding: 10px 20px; border-radius: 8px; 
+            font-weight: bold; cursor: pointer; border: none;
         }
-        .btn:hover { background: #10b981; transform: translateY(-2px); }
-        .btn-tab { background: #1e40af; } /* Blue for New Tab */
-
-        .mascot { width: 60px; border-radius: 50%; border: 2px solid #10b981; margin-bottom: 10px; }
-        .game-selection { margin: 20px; }
+        .btn-blue { background: #1e40af; }
+        .btn:hover { opacity: 0.8; }
     </style>
 </head>
 <body>
 
     <div class="header-bar">
-        <img src="https://placeholder.com" class="mascot" alt="Dr. Donut">
         <h1>Sigma_TreesGames</h1>
-        <div class="search-container">
-            <input type="text" id="gameSearch" placeholder="Search games..." onkeyup="searchGame()">
+        <input type="text" placeholder="Search games..." style="margin-top:10px; padding:5px; border-radius:15px; border:none;">
+    </div>
+
+    <div class="gallery">
+        <!-- Game Cards -->
+        <div class="game-card" onclick="changeGame('https://krew.io', 'Krew.io')">
+            <img src="https://placeholder.com" alt="Krew">
+            <span>Krew.io</span>
+        </div>
+        <div class="game-card" onclick="changeGame('https://dashmetry.com/', 'Dashmentry')">
+            <img src="https://placeholder.com" alt="Dash">
+            <span>Dashmentry</span>
+        </div>
+        <div class="game-card" onclick="changeGame('https://gamedistribution.com/games/geometry-lite/', 'GD Lite')">
+            <img src="https://placeholder.com' alt="GD">
+            <span>GD Lite</span>
+        </div>
+        <div class="game-card" onclick="changeGame('https://littlebigsnake.com/', 'Snake')">
+            <img src="https://placeholder.com" alt="Snake">
+            <span>Little Big Snake</span>
+        </div>
+        <div class="game-card" onclick="changeGame('https://github.io', 'Slope')">
+            <img src="https://placeholder.com" alt="Slope">
+            <span>Slope</span>
+        </div>
+        <div class="game-card" onclick="changeGame('https://github.io', 'FNAF')">
+            <img src="https://placeholder.com" alt="FNAF">
+            <span>FNAF</span>
+        </div>
+        <div class="game-card" onclick="changeGame('https://noob.io', 'Noob.io')">
+            <img src="https://placeholder.com" alt="Noob">
+            <span>Noob.io</span>
+        </div>
+        <div class="game-card" onclick="changeGame('https://shellshock.io', 'Shell')">
+            <img src="https://placeholder.com" alt="Shell">
+            <span>Shell Shockers</span>
         </div>
     </div>
 
-    <div class="game-selection">
-        <p>Select a Game:</p>
-        <button class="btn" onclick="changeGame('https://krew.io')">Krew.io</button>
-        <!-- Add more game buttons here in the future -->
+    <h2 id="current-title" style="color:#10b981;">Playing: Krew.io</h2>
+    
+    <div id="game-container">
+        <iframe id="main-game" src="https://krew.io" allow="fullscreen" allowfullscreen></iframe>
     </div>
 
-    <div id="game-box-wrapper">
-        <div id="game-container">
-            <iframe id="main-game" src="https://krew.io" allow="fullscreen" allowfullscreen></iframe>
-        </div>
-
-        <div class="game-controls">
-            <!-- Fullscreen Button now at the bottom of the game -->
-            <button class="btn" onclick="goFullscreen();">FULLSCREEN</button>
-            <!-- New Tab Launch Option -->
-            <button class="btn btn-tab" onclick="launchNewTab();">OPEN IN NEW TAB</button>
-        </div>
+    <div class="controls">
+        <button class="btn" onclick="goFullscreen();">FULLSCREEN</button>
+        <button class="btn btn-blue" onclick="window.open(document.getElementById('main-game').src, '_blank')">OPEN IN NEW TAB</button>
     </div>
 
     <script>
-        function changeGame(url) {
+        function changeGame(url, name) {
             document.getElementById('main-game').src = url;
+            document.getElementById('current-title').innerText = "Playing: " + name;
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         }
-
-        function launchNewTab() {
-            var currentGameUrl = document.getElementById('main-game').src;
-            window.open(currentGameUrl, '_blank');
-        }
-
         function goFullscreen() {
             var elem = document.getElementById("game-container");
             if (elem.requestFullscreen) { elem.requestFullscreen(); }
             else if (elem.webkitRequestFullscreen) { elem.webkitRequestFullscreen(); }
         }
-
-        function searchGame() {
-            let input = document.getElementById('gameSearch').value.toLowerCase();
-            console.log("Searching: " + input);
-        }
     </script>
 </body>
 </html>
+
