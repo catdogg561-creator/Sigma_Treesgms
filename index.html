@@ -53,6 +53,7 @@
     </style>
 </head>
 <body>
+    <!-- Replace this with your actual Dr. Donut image link later -->
     <img src="https://placeholder.com" class="mascot" alt="Dr. Donut">
     <h1>Sigma_TreesGames</h1>
     
@@ -61,8 +62,12 @@
     </div>
 
     <div class="btn-group">
+        <!-- Krew.io (Direct Link) -->
         <button class="btn" onclick="loadGame('https://krew.io')">Krew.io</button>
-        <button class="btn xbox-btn" onclick="loadGame('https://xbox.com')">Xbox Cloud (Fortnite)</button>
+        
+        <!-- Xbox Cloud via Proxy (This bypasses the block) -->
+        <button class="btn xbox-btn" onclick="loadGame('https://google.com')">Xbox Cloud (Bypass)</button>
+        
         <button class="btn" onclick="goFullscreen();">MAXIMIZE VIEW</button>
     </div>
 
@@ -82,11 +87,14 @@
         }
 
         function searchGame() {
-            // This is a placeholder for search logic
             let input = document.getElementById('gameSearch').value.toLowerCase();
             console.log("Searching for: " + input);
         }
     </script>
+    
+    <p style="color: #6ee7b7; font-size: 0.8em; margin-top: 20px;">
+        Note: If Xbox shows an error, click it again or use a Proxy Unblocker.
+    </p>
 </body>
 </html>
 
