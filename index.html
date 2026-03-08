@@ -1,79 +1,98 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Sigma_TreesGames | Dr. Donut's Den</title>
+    <title>Sigma_TreesGames | Hub</title>
     <script type="module" src="https://unpkg.com"></script>
     <style>
-        body { background-color: #022c22; color: #ecfdf5; font-family: 'Segoe UI', sans-serif; text-align: center; margin: 0; padding: 0; position: relative; min-height: 100vh; }
-        
-        /* Black Header */
-        .header-bar { background-color: #000; padding: 15px; border-bottom: 3px solid #10b981; }
-        h1 { color: #10b981; margin: 0; font-size: 2.2em; text-shadow: 2px 2px #000; }
-        
-        .warning-msg { background: #7f1d1d; color: #fecaca; padding: 8px; font-size: 0.85em; font-weight: bold; border-bottom: 2px solid #b91c1c; }
-
-        /* Category Menu */
-        .category-menu { display: flex; justify-content: center; gap: 15px; padding: 20px; background: #064e3b; }
-        .cat-btn { 
-            background: #10b981; color: #000; padding: 12px 25px; border-radius: 30px; 
-            font-weight: bold; cursor: pointer; border: 3px solid #059669; font-size: 1em; transition: 0.3s;
+        /* Theme Variables */
+        :root {
+            --bg-color: #022c22;
+            --text-color: #ecfdf5;
+            --header-bg: #000000;
+            --card-bg: #000000;
+            --accent: #10b981;
+            --btn-shadow: #059669;
         }
-        .cat-btn:hover { background: #000; color: #10b981; transform: translateY(-3px); }
 
-        /* Game Galleries (Hidden by default) */
+        .light-mode {
+            --bg-color: #f3f4f6;
+            --text-color: #111827;
+            --header-bg: #ffffff;
+            --card-bg: #ffffff;
+            --accent: #059669;
+            --btn-shadow: #d1d5db;
+        }
+
+        body { background-color: var(--bg-color); color: var(--text-color); font-family: 'Segoe UI', sans-serif; text-align: center; margin: 0; padding: 0; min-height: 100vh; transition: 0.3s; }
+        
+        .header-bar { background-color: var(--header-bg); padding: 15px; border-bottom: 4px solid var(--accent); }
+        h1 { color: var(--accent); margin: 0; font-size: 2.2em; text-shadow: 2px 2px rgba(0,0,0,0.5); }
+        
+        /* Theme Toggle Button */
+        .theme-btn { position: absolute; top: 20px; right: 20px; padding: 10px; cursor: pointer; border-radius: 50%; border: 2px solid var(--accent); background: var(--header-bg); font-size: 1.2em; }
+
+        .search-box { margin-top: 10px; }
+        #gameSearch { padding: 10px; width: 250px; border-radius: 20px; border: 2px solid var(--accent); background: var(--bg-color); color: var(--text-color); outline: none; }
+
+        .category-menu { display: flex; justify-content: center; gap: 15px; padding: 20px; background: rgba(0,0,0,0.1); flex-wrap: wrap; }
+        .cat-btn { 
+            background: var(--accent); color: #fff; padding: 15px 30px; border-radius: 12px; 
+            font-weight: 900; cursor: pointer; border: none; font-size: 1.1em; 
+            transition: 0.2s; box-shadow: 0 4px 0 var(--btn-shadow);
+        }
+        .cat-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 0 var(--btn-shadow); opacity: 0.9; }
+
         .gallery { display: none; flex-wrap: wrap; justify-content: center; gap: 12px; padding: 20px; }
         .active-gallery { display: flex; }
 
         .game-card { 
-            width: 90px; cursor: pointer; transition: 0.3s; border-radius: 12px; 
-            padding: 10px; background: rgba(0,0,0,0.4); border: 2px solid transparent; 
+            width: 85px; cursor: pointer; transition: 0.3s; border-radius: 15px; 
+            padding: 10px; background: var(--card-bg); border: 2px solid var(--accent); 
         }
-        .game-card:hover { transform: scale(1.1); border-color: #10b981; background: #000; }
-        .game-icon { font-size: 40px; margin-bottom: 5px; display: block; }
-        .game-card span { font-size: 0.7em; font-weight: bold; display: block; }
+        .game-card:hover { transform: scale(1.1); box-shadow: 0 0 15px var(--accent); }
+        .game-icon { font-size: 35px; display: block; margin-bottom: 5px; }
+        .game-card span { font-size: 0.65em; font-weight: bold; display: block; }
 
-        /* Game Box */
-        #game-container { width: 80%; max-width: 750px; height: 420px; margin: 20px auto; border: 5px solid #059669; border-radius: 15px; overflow: hidden; background: #000; }
+        #game-container { width: 85%; max-width: 750px; height: 420px; margin: 20px auto; border: 5px solid var(--accent); border-radius: 15px; overflow: hidden; background: #000; }
         iframe { width: 100%; height: 100%; border: none; }
 
-        .game-controls { margin-top: 10px; display: flex; justify-content: center; gap: 10px; padding-bottom: 60px; }
-        .btn-action { background: #059669; color: white; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; border: none; }
+        .controls { margin-top: 10px; display: flex; justify-content: center; gap: 10px; padding-bottom: 60px; }
+        .btn-action { background: var(--accent); color: white; padding: 12px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; border: none; }
         .btn-tab { background: #1e40af; }
         
-        .version-tag { position: fixed; bottom: 10px; right: 15px; color: #059669; font-size: 0.7em; font-weight: bold; }
+        .version-tag { position: fixed; bottom: 10px; right: 15px; color: var(--accent); font-size: 0.7em; font-weight: bold; background: var(--header-bg); padding: 5px 10px; border-radius: 5px; }
     </style>
 </head>
 <body>
 
     <div class="header-bar">
+        <button class="theme-btn" onclick="toggleTheme()">🌓</button>
         <h1>Sigma_TreesGames</h1>
+        <div class="search-box">
+            <input type="text" id="gameSearch" placeholder="🔍 Search Unblocked..." onkeyup="searchGames()">
+        </div>
     </div>
 
-    <div class="warning-msg">
-        ⚠️ U might have to click on a game 1-3 times for it to work!
-    </div>
-
-    <!-- Main Category Selection -->
     <div class="category-menu">
         <div class="cat-btn" onclick="showCategory('shooters')">🔫 SHOOTERS</div>
         <div class="cat-btn" onclick="showCategory('chill')">🌊 CHILL</div>
         <div class="cat-btn" onclick="showCategory('snakey')">🐍 SNAKEY</div>
     </div>
 
-    <!-- Shooters Gallery -->
+    <!-- SHOOTERS (Proxied) -->
     <div id="shooters" class="gallery">
         <div class="game-card" onclick="changeGame('https://shellshock.io', 'Shell Shockers')">
-            <span class="game-icon">🥚</span><span>Shell Shockers</span>
+            <span class="game-icon">🥚</span><span>Shell</span>
         </div>
         <div class="game-card" onclick="changeGame('https://craftnite.io', 'Craftnite')">
-            <span class="game-icon">⛏️</span><span>Craftnite.io</span>
+            <span class="game-icon">⛏️</span><span>Craftnite</span>
         </div>
         <div class="game-card" onclick="changeGame('https://krunker.io', 'Krunker')">
-            <span class="game-icon">🎯</span><span>Krunker.io</span>
+            <span class="game-icon">🎯</span><span>Krunker</span>
         </div>
     </div>
 
-    <!-- Chill Gallery -->
+    <!-- CHILL (Fixed Mirrors) -->
     <div id="chill" class="gallery active-gallery">
         <div class="game-card" onclick="changeGame('https://krew.io', 'Krew.io')">
             <span class="game-icon">⛵</span><span>Krew.io</span>
@@ -84,56 +103,67 @@
         <div class="game-card" onclick="changeGame('https://bloxd.io', 'Bloxd.io')">
             <span class="game-icon">🧱</span><span>Bloxd.io</span>
         </div>
-        <div class="game-card" onclick="changeGame('https://github.io', 'Tiny Fishing')">
+        <div class="game-card" onclick="changeGame('https://pages.dev', 'Tiny Fishing')">
             <span class="game-icon">🎣</span><span>Tiny Fishing</span>
         </div>
-        <div class="game-card" onclick="changeGame('https://github.io', 'Red Ball')">
+        <div class="game-card" onclick="changeGame('https://pages.dev', 'Red Ball 4')">
             <span class="game-icon">🔴</span><span>Red Ball</span>
         </div>
     </div>
 
-    <!-- Snakey Gallery -->
+    <!-- SNAKEY (Trick the Proxy Mirrors) -->
     <div id="snakey" class="gallery">
-        <div class="game-card" onclick="changeGame('https://littlebigsnake.com', 'Little Big Snake')">
-            <span class="game-icon">🐍</span><span>Big Snake</span>
+        <div class="game-card" onclick="changeGame('https://littlebigsnake.io', 'Big Snake')">
+            <span class="game-icon">🐍</span><span>Snake</span>
         </div>
-        <div class="game-card" onclick="changeGame('https://wormszone.io', 'WormZone')">
-            <span class="game-icon">🪱</span><span>WormZone.io</span>
+        <div class="game-card" onclick="changeGame('https://pages.dev', 'WormZone')">
+            <span class="game-icon">🪱</span><span>WormZone</span>
         </div>
         <div class="game-card" onclick="changeGame('https://flyordie.io', 'FlyOrDie')">
-            <span class="game-icon">🪰</span><span>FlyOrDie.io</span>
+            <span class="game-icon">🪰</span><span>FlyOrDie</span>
         </div>
-        <div class="game-card" onclick="changeGame('https://mope.io', 'Mope.io')">
+        <div class="game-card" onclick="changeGame('https://github.io', 'Mope.io')">
             <span class="game-icon">🐷</span><span>Mope.io</span>
         </div>
     </div>
 
-    <h3 id="current-title" style="color:#10b981; margin-top:10px;">Select a Category Above</h3>
+    <h3 id="play-text" style="color:var(--accent); margin-top:15px;">v1.1.1 Stable Build</h3>
 
     <div id="game-container">
         <iframe id="main-game" is="x-frame-bypass" src="about:blank" allow="fullscreen" allowfullscreen></iframe>
     </div>
 
-    <div class="game-controls">
+    <div class="controls">
         <button class="btn-action" onclick="goFullscreen();">FULLSCREEN</button>
-        <button class="btn-action btn-tab" onclick="launchNewTab();">OPEN IN NEW TAB</button>
+        <button class="btn-action btn-tab" onclick="launchNewTab();">NEW TAB (Bypass)</button>
     </div>
 
-    <div class="version-tag">v1.0.9</div>
+    <div class="version-tag">v1.1.1</div>
 
     <script>
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+        }
+
         function showCategory(catId) {
-            // Hide all galleries
-            document.querySelectorAll('.gallery').forEach(el => el.classList.remove('active-gallery'));
-            // Show the selected one
+            document.querySelectorAll('.gallery').forEach(g => g.classList.remove('active-gallery'));
             document.getElementById(catId).classList.add('active-gallery');
-            document.getElementById('current-title').innerText = "Pick a " + catId + " game!";
         }
 
         function changeGame(url, name) {
             document.getElementById('main-game').src = url;
-            document.getElementById('current-title').innerText = "Playing: " + name;
+            document.getElementById('play-text').innerText = "Playing: " + name;
             window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+
+        function searchGames() {
+            let input = document.getElementById('gameSearch').value.toLowerCase();
+            let cards = document.querySelectorAll('.game-card');
+            document.querySelectorAll('.gallery').forEach(g => g.classList.add('active-gallery'));
+            cards.forEach(card => {
+                let name = card.innerText.toLowerCase();
+                card.style.display = name.includes(input) ? "block" : "none";
+            });
         }
 
         function launchNewTab() {
@@ -149,4 +179,5 @@
     </script>
 </body>
 </html>
+
 
