@@ -5,32 +5,21 @@
     <style>
         body { background-color: #022c22; color: #ecfdf5; font-family: 'Segoe UI', sans-serif; text-align: center; margin: 0; padding: 0; }
         
-        /* Black Header */
-        .header-bar { 
-            background-color: #000; 
-            padding: 15px; 
-            border-bottom: 3px solid #10b981; 
-            margin-bottom: 20px;
-        }
+        .header-bar { background-color: #000; padding: 15px; border-bottom: 3px solid #10b981; margin-bottom: 20px; }
         h1 { color: #10b981; margin: 0; font-size: 2.2em; text-shadow: 2px 2px #000; }
-        
-        /* Search Bar */
-        #gameSearch {
-            padding: 8px; width: 220px; border-radius: 15px; margin-top: 10px;
-            border: 2px solid #10b981; background: #064e3b; color: white; outline: none;
-        }
 
-        /* Game Selection Row */
-        .game-selection { 
+        /* Icon Gallery */
+        .gallery { 
             display: flex; flex-wrap: wrap; justify-content: center; 
-            gap: 10px; padding: 15px; background: #064e3b; 
+            gap: 15px; padding: 20px; background: #064e3b; 
         }
-        .btn-game { 
-            background: #059669; color: white; padding: 8px 15px; 
-            border-radius: 5px; font-weight: bold; cursor: pointer; border: none; 
-            font-size: 0.85em; transition: 0.2s;
+        .game-card { 
+            width: 100px; cursor: pointer; transition: 0.3s; 
+            border-radius: 12px; padding: 8px; border: 2px solid transparent;
         }
-        .btn-game:hover { background: #10b981; transform: scale(1.05); }
+        .game-card:hover { transform: scale(1.1); background: #022c22; border-color: #10b981; }
+        .game-card img { width: 100%; border-radius: 10px; margin-bottom: 5px; box-shadow: 0 4px 8px rgba(0,0,0,0.5); }
+        .game-card span { font-size: 0.75em; font-weight: bold; display: block; }
 
         /* Shrunk Game Box */
         #game-container {
@@ -40,34 +29,56 @@
         }
         iframe { width: 100%; height: 100%; border: none; }
 
-        /* Controls at Bottom */
         .game-controls { margin-top: 10px; display: flex; justify-content: center; gap: 10px; padding-bottom: 40px; }
-        .btn-action { 
-            background: #059669; color: white; padding: 10px 20px; 
-            border-radius: 8px; font-weight: bold; cursor: pointer; border: none; 
-        }
+        .btn-action { background: #059669; color: white; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; border: none; }
         .btn-tab { background: #1e40af; }
     </style>
 </head>
 <body>
 
     <div class="header-bar">
-        <img src="https://placeholder.com" style="border-radius:50%; border:2px solid #10b981; margin-bottom:5px;">
         <h1>Sigma_TreesGames</h1>
-        <input type="text" id="gameSearch" placeholder="Search games...">
     </div>
 
-    <div class="game-selection">
-        <button class="btn-game" onclick="changeGame('https://krew.io', 'Krew.io')">Krew.io</button>
-        <button class="btn-game" onclick="changeGame('https://dashmetry.com', 'Dashmentry')">Dashmentry</button>
-        <button class="btn-game" onclick="changeGame('https://geometrylitepc.io', 'GD Lite')">GD Lite</button>
-        <button class="btn-game" onclick="changeGame('https://littlebigsnake.com', 'Snake')">Snake</button>
-        <button class="btn-game" onclick="changeGame('https://y8.com/embed/slope', 'Slope')">Slope</button>
-        <button class="btn-game" onclick="changeGame('https://fnaf1.io/', 'FNAF')">FNAF</button>
-        <button class="btn-game" onclick="changeGame('https://shellshock.io', 'Shell')">Shell Shockers</button>
+    <div class="gallery">
+        <!-- Krew.io -->
+        <div class="game-card" onclick="changeGame('https://krew.io', 'Krew.io')">
+            <img src="https://githubusercontent.com" onerror="this.src='https://placeholder.com'" alt="Krew">
+            <span>Krew.io</span>
+        </div>
+        <!-- Dashmentry -->
+        <div class="game-card" onclick="changeGame('https://dashmetry.com', 'Dashmentry')">
+            <img src="https://placeholder.com" alt="Dash">
+            <span>Dashmentry</span>
+        </div>
+        <!-- GD Lite -->
+        <div class="game-card" onclick="changeGame('https://geometrylitepc.io', 'GD Lite')">
+            <img src="https://placeholder.com" alt="GD">
+            <span>GD Lite</span>
+        </div>
+        <!-- Snake -->
+        <div class="game-card" onclick="changeGame('https://littlebigsnake.com/', 'Snake')">
+            <img src="https://placeholder.com" alt="Snake">
+            <span>Snake</span>
+        </div>
+        <!-- Slope -->
+        <div class="game-card" onclick="changeGame('https://y8.com', 'Slope')">
+            <img src="https://placeholder.com" alt="Slope">
+            <span>Slope</span>
+        </div>
+        <!-- FNAF -->
+        <div class="game-card" onclick="changeGame('https://fnaf1.io', 'FNAF')">
+            <img src="https://placeholder.com" alt="FNAF">
+            <span>FNAF</span>
+        </div>
+        <!-- Shell Shockers -->
+        <div class="game-card" onclick="changeGame('https://shellshock.io', 'Shell')">
+            <img src="https://placeholder.com" alt="Shell">
+            <span>Shell Shockers</span>
+        </div>
     </div>
 
-    <h3 id="current-title" style="color:#10b981; margin-top:20px;">Click a game to start</h3>
+    <h3 id="current-title" style="color:#10b981; margin-top:20px;">Select a Game Icon Above</h3>
 
     <div id="game-container">
         <iframe id="main-game" src="about:blank" allow="fullscreen" allowfullscreen></iframe>
@@ -82,6 +93,7 @@
         function changeGame(url, name) {
             document.getElementById('main-game').src = url;
             document.getElementById('current-title').innerText = "Playing: " + name;
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         }
         function launchNewTab() {
             var url = document.getElementById('main-game').src;
@@ -95,4 +107,5 @@
     </script>
 </body>
 </html>
+
 
