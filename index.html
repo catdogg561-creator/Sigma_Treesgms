@@ -1,23 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>S3hjkGems | My Game World</title>
+    <title>S3hjkGems | Krew.io HQ</title>
     <style>
-        body { background-color: #1a1a2e; color: white; font-family: sans-serif; text-align: center; padding: 50px; }
-        .game-box { border: 5px solid #16213e; background: #0f3460; padding: 100px; border-radius: 15px; display: inline-block; }
-        h1 { color: #e94560; }
-        .btn { background: #e94560; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; }
+        body { background-color: #064e3b; color: #ecfdf5; font-family: sans-serif; text-align: center; margin: 0; padding: 20px; }
+        h1 { color: #10b981; margin-bottom: 10px; }
+        
+        /* The Game Container */
+        #game-container {
+            position: relative;
+            width: 90%;
+            max-width: 1000px;
+            height: 600px;
+            margin: 0 auto;
+            border: 5px solid #059669;
+            border-radius: 15px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        iframe { width: 100%; height: 100%; border: none; }
+
+        .btn { 
+            background: #059669; color: white; padding: 12px 25px; 
+            text-decoration: none; border-radius: 8px; font-weight: bold;
+            cursor: pointer; border: none; margin-top: 20px;
+        }
+        .btn:hover { background: #10b981; }
+        .mascot { width: 100px; border-radius: 50%; border: 3px solid #10b981; margin-bottom: 10px; }
     </style>
 </head>
 <body>
-    <h1>Welcome to S3hjkGems</h1>
-    <p>The future home of my awesome games!</p>
-    <br><br>
-    <div class="game-box">
-        <h3>Game Loading...</h3>
-        <p>This is where the game window will go.</p>
+    <img src="https://placeholder.com" class="mascot" alt="Dr. Donut">
+    <h1>S3hjkGems</h1>
+    <p>Currently Playing: <strong>Krew.io</strong></p>
+
+    <div id="game-container">
+        <!-- This embeds the actual game -->
+        <iframe src="https://krew.io/" allow="fullscreen" allowfullscreen></iframe>
     </div>
-    <br><br>
-    <a href="#" class="btn">COMING SOON</a>
+
+    <br>
+    <button class="btn" onclick="goFullscreen();">MAXIMIZE GAME</button>
+
+    <script>
+        function goFullscreen() {
+            var elem = document.getElementById("game-container");
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) { /* Safari */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE11 */
+                elem.msRequestFullscreen();
+            }
+        }
+    </script>
 </body>
 </html>
