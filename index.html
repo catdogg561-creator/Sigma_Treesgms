@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Sigma_TreesGames | Math</title>
-    <!-- Secret script to help force games through school proxies -->
+    <!-- Script to help force games through school proxies -->
     <script type="module" src="https://unpkg.com"></script>
     <style>
         :root {
@@ -22,14 +22,13 @@
             --card: #e8f0fe;
         }
 
-        body { background-color: var(--bg); color: var(--text); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; margin: 0; padding: 0; min-height: 100vh; transition: 0.2s; }
+        body { background-color: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; text-align: center; margin: 0; padding: 0; min-height: 100vh; transition: 0.2s; }
         
         .header-bar { background-color: var(--header); padding: 15px; border-bottom: 3px solid var(--accent); position: relative; }
         h1 { color: var(--accent); margin: 0; font-size: 2em; letter-spacing: 1px; }
         
         .theme-btn { position: absolute; top: 15px; right: 20px; padding: 10px; cursor: pointer; border-radius: 8px; border: 2px solid var(--accent); background: transparent; color: var(--accent); font-weight: bold; }
 
-        /* The Warning Message */
         .warning-msg { background: #7f1d1d; color: #fecaca; padding: 10px; font-size: 0.85em; font-weight: bold; border-bottom: 2px solid #b91c1c; }
 
         .search-box { margin: 15px 0; }
@@ -43,7 +42,6 @@
         }
         .cat-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 0 #059669; }
 
-        /* Galleries */
         .gallery { display: none; flex-wrap: wrap; justify-content: center; gap: 12px; padding: 20px; }
         .active-gallery { display: flex; }
 
@@ -53,15 +51,14 @@
         }
         .game-card:hover { transform: scale(1.1); background: #000; border-color: #fff; }
         .game-icon { font-size: 40px; display: block; margin-bottom: 8px; }
-        .game-card span { font-size: 0.65em; font-weight: bold; display: block; text-transform: uppercase; }
+        .game-card span { font-size: 0.6em; font-weight: bold; display: block; text-transform: uppercase; }
 
-        /* Game Display Window */
-        #game-box-wrapper { width: 85%; max-width: 650px; height: 380px; margin: 20px auto; border: 5px solid var(--accent); border-radius: 15px; overflow: hidden; background: #000; box-shadow: 0 10px 40px rgba(0,0,0,0.6); }
+        #game-box-wrapper { width: 85%; max-width: 650px; height: 380px; margin: 20px auto; border: 5px solid var(--accent); border-radius: 15px; overflow: hidden; background: #000; }
         iframe { width: 100%; height: 100%; border: none; }
 
         .controls { margin-top: 10px; display: flex; justify-content: center; gap: 10px; padding-bottom: 80px; }
         .btn-action { background: var(--accent); color: white; padding: 12px 24px; border-radius: 10px; font-weight: bold; cursor: pointer; border: none; }
-        .btn-tab { background: #1e40af; }
+        .btn-tab { background: #1e40af; box-shadow: 0 0 15px #1e40af; }
         
         .version-tag { position: fixed; bottom: 10px; right: 15px; color: var(--accent); font-size: 0.7em; font-weight: bold; background: var(--header); padding: 5px 10px; border-radius: 5px; }
     </style>
@@ -73,9 +70,8 @@
         <h1 id="main-title">Sigma_TreesGames</h1>
     </div>
 
-    <!-- Warning Bar -->
     <div class="warning-msg">
-        ⚠️ U might have to click on a game 1-3 times for it to work!
+        ⚠️ U might have to click on a game 1-3 times! If you see a SAD FACE, click the BLUE BUTTON below!
     </div>
 
     <div class="search-box">
@@ -88,7 +84,7 @@
         <div class="cat-btn" onclick="showCategory('snakey')">🐍 SNAKEY</div>
     </div>
 
-    <!-- SHOOTERS (Mirror Mode) -->
+    <!-- SHOOTERS -->
     <div id="shooters" class="gallery">
         <div class="game-card" onclick="changeGame('https://shellshock.io', 'Shell Shockers')">
             <span class="game-icon">🥚</span><span>Shell</span>
@@ -101,7 +97,7 @@
         </div>
     </div>
 
-    <!-- CHILL (GitHub Mirror Mode) -->
+    <!-- CHILL -->
     <div id="chill" class="gallery active-gallery">
         <div class="game-card" onclick="changeGame('https://krew.io', 'Krew.io')">
             <span class="game-icon">⛵</span><span>Krew.io</span>
@@ -112,31 +108,31 @@
         <div class="game-card" onclick="changeGame('https://bloxd.io', 'Bloxd.io')">
             <span class="game-icon">🧱</span><span>Bloxd.io</span>
         </div>
-        <div class="game-card" onclick="changeGame('https://github.io', 'Tiny Fishing')">
+        <div class="game-card" onclick="changeGame('https://tinyfishingame.com/', 'Tiny Fishing')">
             <span class="game-icon">🎣</span><span>Tiny Fish</span>
         </div>
-        <div class="game-card" onclick="changeGame('https://github.io', 'Red Ball 4')">
+        <div class="game-card" onclick="changeGame('https://redball4.com', 'Red Ball 4')">
             <span class="game-icon">🔴</span><span>Red Ball</span>
         </div>
     </div>
 
-    <!-- SNAKEY (GitHub Mirror Mode) -->
+    <!-- SNAKEY -->
     <div id="snakey" class="gallery">
-        <div class="game-card" onclick="changeGame('https://pages.dev', 'WormZone')">
+        <div class="game-card" onclick="changeGame('https://wormszone.io', 'WormZone')">
             <span class="game-icon">🪱</span><span>WormZone</span>
         </div>
-        <div class="game-card" onclick="changeGame('https://github.io', 'Mope.io')">
+        <div class="game-card" onclick="changeGame('https://mope.io', 'Mope.io')">
             <span class="game-icon">🐷</span><span>Mope.io</span>
         </div>
-        <div class="game-card" onclick="changeGame('https://github.io', 'FlyOrDie')">
+        <div class="game-card" onclick="changeGame('https://flyordie.io', 'FlyOrDie')">
             <span class="game-icon">🪰</span><span>FlyOrDie</span>
         </div>
-        <div class="game-card" onclick="changeGame('https://littlebigsnake.io', 'Big Snake')">
+        <div class="game-card" onclick="changeGame('https://littlebigsnake.com', 'Big Snake')">
             <span class="game-icon">🐍</span><span>Snake</span>
         </div>
     </div>
 
-    <h3 id="play-text" style="color:var(--accent); margin-top:20px;">v1.1.4 Math Resources</h3>
+    <h3 id="play-text" style="color:var(--accent); margin-top:20px;">v1.1.5 Mathematics Research</h3>
 
     <div id="game-box-wrapper">
         <iframe id="main-game" is="x-frame-bypass" src="about:blank" allow="fullscreen" allowfullscreen></iframe>
@@ -147,19 +143,16 @@
         <button class="btn-action btn-tab" onclick="launchNewTab();">NEW TAB (Bypass)</button>
     </div>
 
-    <div class="version-tag">v1.1.4</div>
+    <div class="version-tag">v1.1.5</div>
 
     <script>
         function toggleTheme() {
             document.body.classList.toggle('light-mode');
             let title = document.getElementById('main-title');
-            let docTitle = document.querySelector('title');
             if (document.body.classList.contains('light-mode')) {
                 title.innerText = "Advanced Mathematics Research";
-                docTitle.innerText = "Advanced Math Research";
             } else {
                 title.innerText = "Sigma_TreesGames";
-                docTitle.innerText = "Sigma_TreesGames | Math";
             }
         }
 
