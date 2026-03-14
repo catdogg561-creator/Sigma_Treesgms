@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sigma_Trees Games v1.22 | Omega Edition</title>
-    <!-- Proxy Bridge Script -->
-    <script type="module" src="https://unpkg.com"></script>
+    <title>Sigma_Trees Games v1.23 | Heavyweight Edition</title>
     <style>
         :root {
             /* Default: Sigma Green */
@@ -38,147 +36,163 @@
             text-align: center;
         }
 
-        /* THEME SWITCHER UI */
-        .theme-selector {
-            display: flex; justify-content: center; gap: 15px; margin-bottom: 25px;
-        }
-        .theme-dot {
-            width: 30px; height: 30px; border-radius: 50%; cursor: pointer;
-            border: 2px solid white; transition: 0.3s;
-        }
-        .theme-dot:hover { transform: scale(1.2); }
-
         /* LOCKOUT SCREEN */
         #lockout-screen {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: #000; color: var(--danger); z-index: 10000; padding-top: 15%;
-            font-family: 'Courier New', monospace;
+            text-align: center; font-family: 'Courier New', monospace;
         }
+
+        /* THEME SELECTOR UI */
+        .theme-selector {
+            display: flex; justify-content: center; gap: 15px; margin-bottom: 25px;
+        }
+        .theme-dot {
+            width: 35px; height: 35px; border-radius: 50%; cursor: pointer;
+            border: 3px solid white; transition: 0.3s;
+        }
+        .theme-dot:hover { transform: scale(1.25); box-shadow: 0 0 15px white; }
 
         /* PROXY CONTAINER */
         #proxy-container {
             background-color: var(--proxy-bg);
             border: 2px solid var(--highlight);
-            border-radius: 15px; padding: 30px;
+            border-radius: 15px; padding: 35px;
             margin: 20px auto; max-width: 850px;
-            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            box-shadow: 0 0 40px rgba(0,0,0,0.8);
         }
-        .proxy-bar { display: flex; gap: 10px; justify-content: center; margin-bottom: 15px; }
-        #proxyURL { padding: 14px; width: 75%; border-radius: 10px; border: none; font-size: 1rem; outline: none; }
-        .proxy-btn { background: #2563eb; color: white; border: none; padding: 10px 25px; border-radius: 10px; cursor: pointer; font-weight: bold; }
+        .proxy-bar { display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; }
+        #proxyURL { 
+            padding: 15px; width: 75%; border-radius: 12px; border: none; 
+            font-size: 1.1rem; outline: none; background: #fff; color: #000;
+        }
+        
+        .proxy-btns-group { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .p-btn { 
+            padding: 12px 24px; border-radius: 10px; border: none; 
+            font-weight: bold; cursor: pointer; transition: 0.3s; 
+        }
+        .p-btn.primary { background: #2563eb; color: white; }
+        .p-btn.secondary { background: #333; color: #ccc; }
+        .p-btn:hover { transform: translateY(-3px); filter: brightness(1.2); box-shadow: 0 5px 15px rgba(0,0,0,0.4); }
 
         /* THEATER DISPLAY */
         #game-display {
             display: none; flex-direction: column; align-items: center;
-            margin: 30px auto; background: #000; padding: 20px;
-            border: 2px solid var(--highlight); border-radius: 12px; max-width: 95%;
+            margin: 35px auto; background: #000; padding: 25px;
+            border: 3px solid var(--highlight); border-radius: 15px; max-width: 95%;
         }
-        #game-frame { width: 100%; height: 700px; border: none; background: #fff; }
+        #game-frame { width: 100%; height: 750px; border: none; background: #fff; border-radius: 8px; }
 
-        /* SEARCH & UI */
+        /* UI ELEMENTS */
         #searchBar {
-            padding: 15px; width: 60%; max-width: 450px; border-radius: 30px;
+            padding: 18px; width: 65%; max-width: 500px; border-radius: 35px;
             border: 2px solid var(--accent); background: #000; color: white;
-            margin: 30px 0; text-align: center; font-size: 1.1rem;
+            margin: 35px 0; text-align: center; font-size: 1.2rem;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
         }
 
         .category-title {
-            text-align: left; border-left: 6px solid var(--highlight);
-            padding-left: 15px; margin: 50px 10% 20px;
-            color: var(--highlight); text-transform: uppercase; letter-spacing: 2px;
+            text-align: left; border-left: 8px solid var(--highlight);
+            padding-left: 20px; margin: 60px 10% 25px;
+            color: var(--highlight); text-transform: uppercase; letter-spacing: 3px;
+            font-size: 1.5rem;
         }
 
-        /* GAME CARDS */
-        .game-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 0 5%; }
+        /* GAME CARDS & ANIMATIONS */
+        .game-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; padding: 0 5%; }
         .game-card {
-            background-color: var(--card-bg); border: 1px solid var(--accent);
-            border-radius: 12px; width: 180px; padding: 25px 15px;
+            background-color: var(--card-bg); border: 2px solid var(--accent);
+            border-radius: 15px; width: 190px; padding: 30px 15px;
             cursor: pointer; position: relative;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .game-card:hover {
             background: var(--highlight); color: #000;
-            transform: translateY(-10px) scale(1.05); font-weight: bold;
-            box-shadow: 0 10px 25px rgba(0, 255, 0, 0.3);
+            transform: translateY(-12px) scale(1.07); font-weight: bold;
+            box-shadow: 0 15px 30px rgba(0, 255, 0, 0.4);
         }
 
-        /* FAVORITES STAR */
-        .star {
-            position: absolute; top: 8px; right: 8px; font-size: 1.3rem;
-            filter: grayscale(1); transition: 0.2s;
+        .star { 
+            position: absolute; top: 10px; right: 10px; font-size: 1.5rem; 
+            filter: grayscale(1); transition: 0.3s; 
         }
-        .star.active { filter: grayscale(0); color: gold; }
+        .star.active { filter: grayscale(0); color: #ffd700; transform: scale(1.2); }
 
-        /* STEALTH OVERLAY */
+        /* STEALTH MODE */
         #stealth-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: white; color: black; z-index: 9999; padding: 80px;
             text-align: left; font-family: 'Times New Roman', serif;
         }
 
-        footer { margin-top: 100px; padding: 40px; border-top: 1px solid var(--card-bg); color: var(--accent); opacity: 0.6; }
+        footer { 
+            margin-top: 120px; padding: 50px; border-top: 2px solid var(--card-bg); 
+            color: var(--accent); opacity: 0.8; font-weight: bold;
+        }
     </style>
 </head>
 <body onload="checkLockout(); loadFavs();">
 
-    <!-- LOCKOUT -->
     <div id="lockout-screen">
-        <h1 style="font-size: 4rem;">⚠ SYSTEM LOCKDOWN ⚠</h1>
-        <p style="font-size: 1.5rem;">BANNED SEARCH CONTENT DETECTED.</p>
-        <p>This terminal is restricted for 60 minutes.</p>
-        <h2 id="timer-display" style="margin-top: 50px; color: white;"></h2>
+        <h1 style="font-size: 5rem; margin-bottom: 20px;">⚠ ACCESS REVOKED ⚠</h1>
+        <p style="font-size: 1.8rem; letter-spacing: 2px;">SECURITY PROTOCOL: BANNED KEYWORDS DETECTED</p>
+        <p>This terminal is locked for 60 minutes for administrative review.</p>
+        <h2 id="timer-display" style="margin-top: 60px; color: white; font-size: 3rem;"></h2>
     </div>
 
     <div id="main-content">
         <header>
-            <h1 style="font-size: 4.5rem; margin-bottom: 5px; color: var(--highlight); text-shadow: 4px 4px 0px #000;">Sigma_Trees Games</h1>
-            <p style="color: #666;">"U might have to click on a game once or twice for it to work"</p>
+            <h1 style="font-size: 5rem; margin-bottom: 5px; color: var(--highlight); text-shadow: 5px 5px 0px #000;">Sigma_Trees Games</h1>
+            <p style="color: #888; font-size: 1.2rem; font-style: italic;">"U might have to click on a game once or twice for it to work"</p>
         </header>
 
         <!-- THEME SELECTOR -->
         <div class="theme-selector">
-            <div class="theme-dot" style="background: #2e8b57;" onclick="setTheme('green')"></div>
-            <div class="theme-dot" style="background: #2563eb;" onclick="setTheme('blue')"></div>
-            <div class="theme-dot" style="background: #9333ea;" onclick="setTheme('purple')"></div>
+            <div class="theme-dot" style="background: #2e8b57;" onclick="setTheme('green')" title="Sigma Green"></div>
+            <div class="theme-dot" style="background: #2563eb;" onclick="setTheme('blue')" title="Deep Sea Blue"></div>
+            <div class="theme-dot" style="background: #9333ea;" onclick="setTheme('purple')" title="Void Purple"></div>
         </div>
 
-        <!-- PROXY -->
+        <!-- MULTI-ENGINE PROXY -->
         <div id="proxy-container">
-            <h3 style="margin-top:0; color: var(--highlight);">SIGMA WEB PROXY v2.2</h3>
+            <h3 style="margin-top:0; color: var(--highlight); letter-spacing: 2px;">SIGMA MULTI-PROXY DASHBOARD</h3>
             <div class="proxy-bar">
-                <input type="text" id="proxyURL" placeholder="Enter URL (google.com)">
-                <button class="proxy-btn" onclick="launchProxy()">Launch</button>
+                <input type="text" id="proxyURL" placeholder="Enter URL or Search Query...">
             </div>
-            <div style="display: flex; gap: 10px; justify-content: center;">
-                <button onclick="proxyLink('https://youtube.com')" style="cursor:pointer">YouTube</button>
-                <button onclick="proxyLink('https://google.com')" style="cursor:pointer">Google</button>
-                <button onclick="proxyLink('https://discord.com')" style="cursor:pointer">Discord</button>
+            <div class="proxy-btns-group">
+                <button class="p-btn primary" onclick="launchProxy(1)">Engine Alpha</button>
+                <button class="p-btn secondary" onclick="launchProxy(2)">Engine Beta</button>
+                <button class="p-btn secondary" onclick="launchProxy(3)">Engine Gamma</button>
             </div>
+            <p style="font-size: 0.9rem; margin-top: 20px; color: #666;">Note: Heavy sites may take a moment to process through the bridge.</p>
         </div>
 
-        <input type="text" id="searchBar" placeholder="Search the library..." onkeyup="searchGames()">
-        <p style="font-size: 0.8rem; color: #555;">[P] Stealth | [F] Fullscreen | Hold [ESC] to Close</p>
+        <input type="text" id="searchBar" placeholder="Search the Sigma library..." onkeyup="searchGames()">
+        <p style="font-size: 1rem; color: #555; margin-bottom: 30px;">
+            <b>[P]</b> Stealth Mode | <b>[F]</b> Fullscreen | <b>Hold [ESC]</b> to Close
+        </p>
 
-        <!-- DISPLAY -->
+        <!-- THEATER DISPLAY -->
         <div id="game-display">
-            <h2 id="current-title" style="margin-top:0; color: var(--highlight);"></h2>
-            <iframe id="game-frame" is="x-frame-bypass" src=""></iframe>
-            <div style="margin-top:15px;">
-                <button onclick="document.getElementById('game-frame').requestFullscreen()" style="padding: 10px 25px; cursor: pointer; border-radius: 8px; background: var(--highlight); border: none; font-weight: bold;">FULLSCREEN</button>
+            <h2 id="current-title" style="margin-top:0; color: var(--highlight); font-size: 2rem;"></h2>
+            <iframe id="game-frame" src=""></iframe>
+            <div style="margin-top:25px;">
+                <button onclick="document.getElementById('game-frame').requestFullscreen()" style="padding: 12px 35px; cursor: pointer; border-radius: 10px; background: var(--highlight); border: none; font-weight: bold; font-size: 1.1rem; color: #000;">LAUNCH FULLSCREEN (F)</button>
             </div>
         </div>
 
-        <!-- FAVORITES CATEGORY (DYNAMNIC) -->
+        <!-- FAVORITES (PERSISTENT) -->
         <div id="fav-section" style="display:none">
-            <h2 class="category-title">⭐ Sigma Favorites</h2>
+            <h2 class="category-title">⭐ Top Favorites</h2>
             <div id="fav-grid" class="game-grid"></div>
         </div>
 
-        <!-- FULL LIBRARY -->
+        <!-- FULL CATEGORIZED LIBRARY -->
         <div id="library-main">
-            <!-- SHOOTERS -->
+            <!-- CATEGORY: SHOOTERS -->
             <div class="category-section">
-                <h2 class="category-title">Action & Shooters</h2>
+                <h2 class="category-title">Combat & Shooters</h2>
                 <div class="game-grid">
                     <div class="game-card" id="c-shell" onclick="loadGame('Shell Shockers', 'https://shellshock.io', 'c-shell')">
                         <span class="star" onclick="toggleFav(event, 'c-shell')">⭐</span> Shell Shockers
@@ -192,9 +206,9 @@
                 </div>
             </div>
 
-            <!-- SURVIVAL -->
+            <!-- CATEGORY: EVOLUTION -->
             <div class="category-section">
-                <h2 class="category-title">Survival & Evolution</h2>
+                <h2 class="category-title">Evolution & Survival</h2>
                 <div class="game-grid">
                     <div class="game-card" id="c-mope" onclick="loadGame('Mope.io', 'https://mope.io', 'c-mope')">
                         <span class="star" onclick="toggleFav(event, 'c-mope')">⭐</span> Mope.io
@@ -208,9 +222,9 @@
                 </div>
             </div>
 
-            <!-- ARCADE/IO -->
+            <!-- CATEGORY: IO ARCADE -->
             <div class="category-section">
-                <h2 class="category-title">IO & Arcade Classics</h2>
+                <h2 class="category-title">Arcade & Multiplayer .IO</h2>
                 <div class="game-grid">
                     <div class="game-card" id="c-dash" onclick="loadGame('Dashmetry', 'https://dashmetry.com', 'c-dash')">
                         <span class="star" onclick="toggleFav(event, 'c-dash')">⭐</span> Dashmetry
@@ -234,18 +248,21 @@
             </div>
         </div>
 
-        <footer>Version 1.22 | Powered by Sigma_Trees</footer>
+        <footer>Version 1.23 | The Ultimate Sigma Collection</footer>
     </div>
 
-    <!-- STEALTH OVERLAY -->
+    <!-- STEALTH MODE (FAKE ASSIGNMENT) -->
     <div id="stealth-overlay">
-        <h1>Worksheet: Multivariable Calculus</h1>
-        <p id="math-box"></p>
-        <p><i>Instructions: Evaluate the surface integral using Stokes' Theorem. Show all vector field calculations clearly.</i></p>
+        <h1 style="border-bottom: 2px solid #000; padding-bottom: 10px;">Assignment 14: Multivariable Calculus</h1>
+        <p style="font-weight: bold; margin-top: 30px;">Question 1:</p>
+        <p id="math-box" style="font-size: 1.3rem; margin-bottom: 40px;"></p>
+        <p><i>Note: Please ensure all partial derivatives are calculated using the chain rule. Diagrams must be drawn on a separate sheet of graph paper.</i></p>
+        <p style="margin-top: 50px; color: #777;">Instructor: Dr. Sigma</p>
     </div>
 
     <script>
         const banned = ["porn", "hub", "sex", "xvideo", "hentai", "nude"];
+        const LOCK_DURATION = 60 * 60 * 1000; 
         let escHold;
         let favs = new Set();
 
@@ -255,7 +272,7 @@
             localStorage.setItem('sigma_theme', theme);
         }
 
-        // FAVORITES SYSTEM
+        // FAVORITES LOGIC
         function toggleFav(e, id) {
             e.stopPropagation();
             const star = document.querySelector(`#${id} .star`);
@@ -266,7 +283,7 @@
                 favs.add(id);
                 star.classList.add('active');
             }
-            localStorage.setItem('sigma_favs', JSON.stringify(Array.from(favs)));
+            localStorage.setItem('sigma_favs_v23', JSON.stringify(Array.from(favs)));
             renderFavs();
         }
 
@@ -284,11 +301,12 @@
         }
 
         function loadFavs() {
-            const saved = localStorage.getItem('sigma_favs');
+            const saved = localStorage.getItem('sigma_favs_v23');
             if (saved) {
                 JSON.parse(saved).forEach(id => {
                     favs.add(id);
-                    document.querySelector(`#${id} .star`).classList.add('active');
+                    const el = document.querySelector(`#${id} .star`);
+                    if(el) el.classList.add('active');
                 });
                 renderFavs();
             }
@@ -296,39 +314,43 @@
             if (t) setTheme(t);
         }
 
-        // SECURITY GUARD
+        // SIGMA GUARD SECURITY
         function checkLockout() {
-            const exp = localStorage.getItem('sigma_lock_v22');
+            const exp = localStorage.getItem('sigma_lock_v23');
             if (exp && Date.now() < exp) {
                 document.getElementById('lockout-screen').style.display = "block";
                 document.getElementById('main-content').style.display = "none";
                 setInterval(() => {
                     let d = exp - Date.now();
-                    document.getElementById('timer-display').innerText = `RECOVERY: ${Math.floor(d/60000)}m ${Math.floor((d%60000)/1000)}s`;
+                    let m = Math.floor(d/60000);
+                    let s = Math.floor((d%60000)/1000);
+                    document.getElementById('timer-display').innerText = `ACCESS RESTORED IN: ${m}m ${s}s`;
+                    if (d <= 0) location.reload();
                 }, 1000);
             }
         }
 
-        // PROXY BRIDGE
-        function launchProxy() {
-            let url = document.getElementById('proxyURL').value.toLowerCase();
-            if (banned.some(w => url.includes(w))) {
-                localStorage.setItem('sigma_lock_v22', Date.now() + 3600000);
+        // MULTI-ENGINE PROXY LAUNCHER
+        function launchProxy(engineId) {
+            let input = document.getElementById('proxyURL').value.toLowerCase();
+            if (banned.some(w => input.includes(w))) {
+                localStorage.setItem('sigma_lock_v23', Date.now() + LOCK_DURATION);
                 location.reload();
                 return;
             }
-            if (url) {
-                let bridge = "https://proxysite.com" + encodeURIComponent(url);
-                loadGame('Proxy Browser', bridge);
+            if (!input) return;
+            let finalUrl = "";
+            if (engineId === 1) {
+                finalUrl = "https://proxysite.com" + encodeURIComponent(input);
+            } else if (engineId === 2) {
+                finalUrl = "https://croxyproxy.com" + encodeURIComponent(input);
+            } else {
+                finalUrl = "https://allorigins.win" + encodeURIComponent(input);
             }
+            loadGame('Proxy Terminal', finalUrl);
         }
 
-        function proxyLink(url) { 
-            let bridge = "https://proxysite.com" + encodeURIComponent(url);
-            loadGame('Proxy Browser', bridge); 
-        }
-
-        // CORE CONTROLS
+        // CORE ENGINE FUNCTIONS
         function loadGame(name, url, id) {
             document.getElementById('current-title').innerText = name;
             document.getElementById('game-frame').src = url;
@@ -343,13 +365,20 @@
             });
         }
 
-        // SHORTCUTS
+        // SYSTEM SHORTCUTS
         window.addEventListener('keydown', (e) => {
+            // [P] Stealth Toggle
             if (e.key.toLowerCase() === 'p') {
                 const s = document.getElementById('stealth-overlay');
-                document.getElementById('math-box').innerText = `Solve: ∬S (∇ × F) · dS where F = <${Math.floor(Math.random()*10)}z, ${Math.floor(Math.random()*10)}x, ${Math.floor(Math.random()*10)}y>`;
+                document.getElementById('math-box').innerText = `Evaluate: ∭V (x² + y² + z²) dV where V is a sphere of radius ${Math.floor(Math.random()*15)+5}.`;
                 s.style.display = (s.style.display === "block") ? "none" : "block";
             }
+            // [F] Fullscreen Toggle
+            if (e.key.toLowerCase() === 'f' && document.getElementById('game-display').style.display === "flex") {
+                const frame = document.getElementById('game-frame');
+                if (frame.requestFullscreen) frame.requestFullscreen();
+            }
+            // Hold [ESC] for 2s
             if (e.key === "Escape") {
                 escHold = setTimeout(() => {
                     document.getElementById('game-frame').src = "";
@@ -361,6 +390,8 @@
     </script>
 </body>
 </html>
+
+
 
 
 
