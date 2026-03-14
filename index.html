@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sigma_Trees Games v1.18</title>
-    <!-- Proxy Script to help unblock frames -->
-    <script type="module" src="https://unpkg.com"></script>
+    <title>Sigma_Trees Games v1.20 | Ultimate Edition</title>
     <style>
         :root {
             --bg-color: #050f05;
@@ -24,6 +22,7 @@
             margin: 0; padding: 20px;
             overflow-x: hidden;
             transition: 0.3s;
+            text-align: center;
         }
 
         /* 1-HOUR LOCKOUT OVERLAY */
@@ -31,28 +30,28 @@
             display: none; position: fixed; top: 0; left: 0; 
             width: 100%; height: 100%; background: #000;
             color: var(--danger); z-index: 10000; padding-top: 15%;
-            text-align: center; font-family: 'Courier New', Courier, monospace;
+            text-align: center; font-family: 'Courier New', monospace;
         }
 
-        /* Proxy & Search Section */
+        /* Proxy Section (Fixed Engine) */
         #proxy-container {
             background-color: var(--proxy-bg);
             border: 2px solid var(--highlight);
             border-radius: 15px; padding: 25px;
             margin: 20px auto; max-width: 850px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            box-shadow: 0 0 30px rgba(0,0,0,0.7);
         }
 
         .proxy-bar { display: flex; gap: 10px; justify-content: center; margin-bottom: 15px; }
         
         #proxyURL {
-            padding: 12px; width: 75%; border-radius: 8px; border: none;
-            font-size: 1rem; outline: none;
+            padding: 14px; width: 75%; border-radius: 10px; border: none;
+            font-size: 1rem; outline: none; background: #fff; color: #000;
         }
 
         .proxy-btn {
             background: #2563eb; color: white; border: none;
-            padding: 10px 25px; border-radius: 8px;
+            padding: 10px 25px; border-radius: 10px;
             cursor: pointer; font-weight: bold; transition: 0.2s;
         }
 
@@ -65,7 +64,7 @@
             font-size: 0.8rem; font-weight: bold;
         }
 
-        /* Game Display Box */
+        /* Game Theater Box */
         #game-display {
             display: none; flex-direction: column; align-items: center;
             margin: 30px auto; background: #000;
@@ -73,68 +72,69 @@
             border-radius: 12px; max-width: 95%;
         }
 
-        #game-frame { width: 100%; height: 650px; border: none; background: #000; }
+        #game-frame { width: 100%; height: 700px; border: none; background: #fff; }
 
         /* UI Elements */
         #searchBar {
-            padding: 12px; width: 60%; max-width: 400px;
-            border-radius: 25px; border: 2px solid var(--accent);
-            background: #000; color: white; margin: 25px 0;
-            text-align: center;
+            padding: 15px; width: 60%; max-width: 450px;
+            border-radius: 30px; border: 2px solid var(--accent);
+            background: #000; color: white; margin: 30px 0;
+            text-align: center; font-size: 1rem;
         }
 
         .category-title {
-            text-align: left; border-left: 5px solid var(--highlight);
-            padding-left: 15px; margin: 40px 10% 20px;
-            color: var(--highlight); text-transform: uppercase; letter-spacing: 1px;
+            text-align: left; border-left: 6px solid var(--highlight);
+            padding-left: 15px; margin: 50px 10% 20px;
+            color: var(--highlight); text-transform: uppercase; letter-spacing: 2px;
         }
 
-        .game-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; padding: 0 5%; }
+        .game-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 0 5%; }
 
         .game-card {
             background-color: var(--card-bg); border: 1px solid var(--accent);
-            border-radius: 8px; width: 160px; padding: 18px;
-            cursor: pointer; transition: all 0.3s;
+            border-radius: 10px; width: 170px; padding: 20px;
+            cursor: pointer; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .game-card:hover {
             background: var(--highlight); color: #000;
-            transform: translateY(-5px); font-weight: bold;
+            transform: translateY(-8px) scale(1.05); font-weight: bold;
+            box-shadow: 0 10px 20px rgba(0, 255, 0, 0.2);
         }
 
-        /* Stealth Mode */
+        /* Stealth Mode Overlay */
         #stealth-overlay {
             display: none; position: fixed; top: 0; left: 0; 
             width: 100%; height: 100%; background: white;
-            color: black; z-index: 9999; padding: 60px;
+            color: black; z-index: 9999; padding: 80px;
             text-align: left; font-family: 'Times New Roman', serif;
         }
 
-        footer { margin-top: 60px; border-top: 1px solid #1a331a; padding-top: 20px; color: var(--accent); }
+        footer { margin-top: 80px; border-top: 1px solid #1a331a; padding: 30px; color: var(--accent); opacity: 0.7; }
     </style>
 </head>
 <body onload="checkLockout()">
 
-    <!-- LOCKOUT SCREEN -->
+    <!-- LOCKOUT SCREEN (SIGMA GUARD) -->
     <div id="lockout-screen">
-        <h1 style="font-size: 3rem;">⚠ ACCESS DENIED ⚠</h1>
-        <p style="font-size: 1.2rem;">SECURITY VIOLATION: PROHIBITED SEARCH TERMS DETECTED.</p>
-        <p>Your access to the Sigma Proxy has been suspended for 1 hour.</p>
-        <h2 id="timer-display" style="margin-top: 40px;"></h2>
+        <h1 style="font-size: 4rem; margin-bottom: 10px;">⚠ ACCESS DENIED ⚠</h1>
+        <p style="font-size: 1.5rem;">PROHIBITED CONTENT FILTER TRIGGERED</p>
+        <p>Security protocol: Proxy browsing is disabled for 60 minutes.</p>
+        <h2 id="timer-display" style="margin-top: 50px; color: white;"></h2>
     </div>
 
     <div id="main-content">
         <header>
-            <h1 style="font-size: 3.5rem; margin-bottom: 5px; color: var(--highlight);">Sigma_Trees Games</h1>
-            <p style="color: #666; font-style: italic;">"U might have to click on a game once or twice for it to work"</p>
+            <h1 style="font-size: 4rem; margin-bottom: 5px; color: var(--highlight); text-shadow: 3px 3px 0px #000;">Sigma_Trees Games</h1>
+            <p style="color: #666; font-size: 1.1rem;">"U might have to click on a game once or twice for it to work"</p>
         </header>
 
-        <!-- Proxy Area (BlockAway Style) -->
+        <!-- Proxy Area (Fixed with Bridge Engine) -->
         <div id="proxy-container">
-            <h3 style="margin-top:0; color: #2563eb;">Sigma Web Proxy</h3>
+            <h3 style="margin-top:0; color: #2563eb; letter-spacing: 1px;">SIGMA WEB PROXY v2.0</h3>
             <div class="proxy-bar">
-                <input type="text" id="proxyURL" placeholder="Enter website URL (https://example.com)">
-                <button class="proxy-btn" onclick="launchProxy()">Access</button>
+                <input type="text" id="proxyURL" placeholder="Search Google or enter a direct URL...">
+                <button class="proxy-btn" onclick="launchProxy()">Launch</button>
             </div>
             <div class="quick-links">
                 <button class="quick-btn" onclick="proxyLink('https://youtube.com')">YouTube</button>
@@ -144,22 +144,22 @@
             </div>
         </div>
 
-        <input type="text" id="searchBar" placeholder="Search games..." onkeyup="searchGames()">
-        <p style="font-size: 0.8rem; color: #555;">[P] Stealth | [F] Fullscreen | Hold [ESC] to Close Game</p>
+        <input type="text" id="searchBar" placeholder="Search the library..." onkeyup="searchGames()">
+        <p style="font-size: 0.9rem; color: #444;">[P] Stealth | [F] Fullscreen | Hold [ESC] to Close</p>
 
         <!-- The Theater Display -->
         <div id="game-display">
             <h2 id="current-game-name" style="margin-top:0; color: var(--highlight);"></h2>
-            <iframe id="game-frame" is="x-frame-bypass" src=""></iframe>
-            <div style="margin-top:15px;">
-                <button onclick="toggleFullscreen()" style="padding: 8px 20px; cursor: pointer;">Go Fullscreen (F)</button>
+            <iframe id="game-frame" src=""></iframe>
+            <div style="margin-top:20px;">
+                <button onclick="toggleFullscreen()" style="padding: 10px 25px; cursor: pointer; border-radius: 5px; background: var(--highlight); border: none; font-weight: bold;">GO FULLSCREEN (F)</button>
             </div>
         </div>
 
-        <!-- Game Categories -->
+        <!-- Full Categorized Library -->
         <div id="library">
             <div class="category-section">
-                <h2 class="category-title">Shooters & Action</h2>
+                <h2 class="category-title">Action & Shooters</h2>
                 <div class="game-grid">
                     <div class="game-card" onclick="loadGame('Shell Shockers', 'https://shellshock.io')">Shell Shockers</div>
                     <div class="game-card" onclick="loadGame('Krunker', 'https://krunker.io')">Krunker</div>
@@ -168,7 +168,7 @@
             </div>
 
             <div class="category-section">
-                <h2 class="category-title">Evolution & Survival</h2>
+                <h2 class="category-title">Survival & Evolution</h2>
                 <div class="game-grid">
                     <div class="game-card" onclick="loadGame('Mope.io', 'https://mope.io')">Mope.io</div>
                     <div class="game-card" onclick="loadGame('FlyOrDie', 'https://flyordie.io')">FlyOrDie.io</div>
@@ -177,7 +177,7 @@
             </div>
 
             <div class="category-section">
-                <h2 class="category-title">IO & Arcade</h2>
+                <h2 class="category-title">IO & Arcade Classics</h2>
                 <div class="game-grid">
                     <div class="game-card" onclick="loadGame('Dashmetry', 'https://dashmetry.com')">Dashmetry</div>
                     <div class="game-card" onclick="loadGame('Hole.io', 'https://hole.io')">Hole.io</div>
@@ -188,24 +188,24 @@
             </div>
         </div>
 
-        <footer>Version 1.18 | Managed by Sigma_Trees</footer>
+        <footer>Version 1.20 | Sigma_Trees Official Site</footer>
     </div>
 
-    <!-- Stealth Mode Overlay -->
+    <!-- Stealth Mode Overlay (Assignment Fake) -->
     <div id="stealth-overlay">
-        <h1>Worksheet: Advanced Trigonometry</h1>
+        <h1>Assignment: Differential Equations</h1>
         <p id="math-display"></p>
-        <p>Instructions: Find the value of theta for the given triangle. Show all steps using the Law of Cosines.</p>
+        <p><i>Instructions: Find the particular solution to the differential equation given the initial conditions. Show all integration steps clearly for full credit.</i></p>
     </div>
 
     <script>
         const bannedList = ["porn", "hub", "sex", "xvideo", "hentai", "nude"];
-        const LOCK_DURATION = 60 * 60 * 1000; // 1 hour
+        const LOCK_DURATION = 60 * 60 * 1000; 
         let escHoldTimer;
 
-        // Security Check
+        // Security Lockout Check
         function checkLockout() {
-            const expiry = localStorage.getItem('sigma_lockout_expiry');
+            const expiry = localStorage.getItem('sigma_lock_v20');
             if (expiry && Date.now() < expiry) {
                 document.getElementById('lockout-screen').style.display = "block";
                 document.getElementById('main-content').style.display = "none";
@@ -216,33 +216,36 @@
         function updateTimer(expiry) {
             setInterval(() => {
                 const diff = expiry - Date.now();
-                const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const secs = Math.floor((diff % (1000 * 60)) / 1000);
-                document.getElementById('timer-display').innerText = `ACCESS RESTORED IN: ${mins}m ${secs}s`;
+                const mins = Math.floor(diff / 60000);
+                const secs = Math.floor((diff % 60000) / 1000);
+                document.getElementById('timer-display').innerText = `SYSTEM RESTORE IN: ${mins}m ${secs}s`;
                 if (diff <= 0) location.reload();
             }, 1000);
         }
 
-        // Proxy Functions
+        // Proxy Launcher (Uses Bridge to avoid X-Frame errors)
         function launchProxy() {
             let input = document.getElementById('proxyURL').value.toLowerCase();
             
-            // Check for violation
             if (bannedList.some(word => input.includes(word))) {
-                localStorage.setItem('sigma_lockout_expiry', Date.now() + LOCK_DURATION);
+                localStorage.setItem('sigma_lock_v20', Date.now() + LOCK_DURATION);
                 checkLockout();
                 return;
             }
 
             if (input) {
-                if (!input.startsWith('http')) input = 'https://' + input;
-                loadGame('Proxy Browser', input);
+                // Bridge engine to unblock most sites
+                let bridge = "https://proxysite.com" + encodeURIComponent(input);
+                loadGame('Proxy Browser', bridge);
             }
         }
 
-        function proxyLink(url) { loadGame('Proxy Browser', url); }
+        function proxyLink(url) { 
+            let bridge = "https://proxysite.com" + encodeURIComponent(url);
+            loadGame('Proxy Browser', bridge); 
+        }
 
-        // Game Loading
+        // Core Game Loading
         function loadGame(name, url) {
             document.getElementById('current-game-name').innerText = name;
             document.getElementById('game-frame').src = url;
@@ -250,7 +253,7 @@
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
-        // Search Filter
+        // Live Search Filter
         function searchGames() {
             let filter = document.getElementById('searchBar').value.toLowerCase();
             document.querySelectorAll('.game-card').forEach(card => {
@@ -258,32 +261,31 @@
             });
         }
 
-        // Fullscreen
         function toggleFullscreen() {
             const frame = document.getElementById('game-frame');
             if (frame.requestFullscreen) frame.requestFullscreen();
         }
 
-        // Keyboard Controls
+        // Shortcut Listeners
         window.addEventListener('keydown', (e) => {
-            // Stealth Mode [P]
+            // [P] Stealth Mode
             if (e.key.toLowerCase() === 'p') {
                 const overlay = document.getElementById('stealth-overlay');
                 const math = document.getElementById('math-display');
                 if (overlay.style.display === "block") {
                     overlay.style.display = "none";
                 } else {
-                    math.innerText = `Problem 4: Solve for θ if sin(θ) = ${Math.random().toFixed(2)} and the triangle is obtuse.`;
+                    math.innerText = `Calculate the General Solution for: dy/dx + ${Math.floor(Math.random()*20)}y = e^(${Math.floor(Math.random()*5)}x)`;
                     overlay.style.display = "block";
                 }
             }
 
-            // Fullscreen [F]
+            // [F] Fullscreen
             if (e.key.toLowerCase() === 'f' && document.getElementById('game-display').style.display === "flex") {
                 toggleFullscreen();
             }
 
-            // Hold ESC for 2 seconds
+            // Hold [ESC] for 2 seconds to close
             if (e.key === "Escape") {
                 escHoldTimer = setTimeout(() => {
                     document.getElementById('game-frame').src = "";
@@ -298,5 +300,6 @@
     </script>
 </body>
 </html>
+
 
 
