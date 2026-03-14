@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sigma_Trees Games v1.20 | Ultimate Edition</title>
+    <title>Sigma_Trees Games v1.21 | The Complete Edition</title>
     <style>
         :root {
             --bg-color: #050f05;
@@ -25,7 +25,7 @@
             text-align: center;
         }
 
-        /* 1-HOUR LOCKOUT OVERLAY */
+        /* 1-HOUR LOCKOUT SCREEN */
         #lockout-screen {
             display: none; position: fixed; top: 0; left: 0; 
             width: 100%; height: 100%; background: #000;
@@ -74,7 +74,7 @@
 
         #game-frame { width: 100%; height: 700px; border: none; background: #fff; }
 
-        /* UI Elements */
+        /* Search Bar Styles */
         #searchBar {
             padding: 15px; width: 60%; max-width: 450px;
             border-radius: 30px; border: 2px solid var(--accent);
@@ -82,6 +82,7 @@
             text-align: center; font-size: 1rem;
         }
 
+        /* Category & Card Styles */
         .category-title {
             text-align: left; border-left: 6px solid var(--highlight);
             padding-left: 15px; margin: 50px 10% 20px;
@@ -115,11 +116,10 @@
 </head>
 <body onload="checkLockout()">
 
-    <!-- LOCKOUT SCREEN (SIGMA GUARD) -->
     <div id="lockout-screen">
         <h1 style="font-size: 4rem; margin-bottom: 10px;">⚠ ACCESS DENIED ⚠</h1>
-        <p style="font-size: 1.5rem;">PROHIBITED CONTENT FILTER TRIGGERED</p>
-        <p>Security protocol: Proxy browsing is disabled for 60 minutes.</p>
+        <p style="font-size: 1.5rem;">SECURITY VIOLATION: BANNED CONTENT DETECTED.</p>
+        <p>Your access is suspended for 60 minutes.</p>
         <h2 id="timer-display" style="margin-top: 50px; color: white;"></h2>
     </div>
 
@@ -129,11 +129,11 @@
             <p style="color: #666; font-size: 1.1rem;">"U might have to click on a game once or twice for it to work"</p>
         </header>
 
-        <!-- Proxy Area (Fixed with Bridge Engine) -->
+        <!-- Fixed Proxy Engine -->
         <div id="proxy-container">
-            <h3 style="margin-top:0; color: #2563eb; letter-spacing: 1px;">SIGMA WEB PROXY v2.0</h3>
+            <h3 style="margin-top:0; color: #2563eb; letter-spacing: 1px;">SIGMA WEB PROXY v2.1</h3>
             <div class="proxy-bar">
-                <input type="text" id="proxyURL" placeholder="Search Google or enter a direct URL...">
+                <input type="text" id="proxyURL" placeholder="Search Google or enter a URL...">
                 <button class="proxy-btn" onclick="launchProxy()">Launch</button>
             </div>
             <div class="quick-links">
@@ -147,7 +147,7 @@
         <input type="text" id="searchBar" placeholder="Search the library..." onkeyup="searchGames()">
         <p style="font-size: 0.9rem; color: #444;">[P] Stealth | [F] Fullscreen | Hold [ESC] to Close</p>
 
-        <!-- The Theater Display -->
+        <!-- Game Theater Display -->
         <div id="game-display">
             <h2 id="current-game-name" style="margin-top:0; color: var(--highlight);"></h2>
             <iframe id="game-frame" src=""></iframe>
@@ -156,8 +156,9 @@
             </div>
         </div>
 
-        <!-- Full Categorized Library -->
+        <!-- FULL LIBRARY START -->
         <div id="library">
+            <!-- CATEGORY: SHOOTERS -->
             <div class="category-section">
                 <h2 class="category-title">Action & Shooters</h2>
                 <div class="game-grid">
@@ -167,6 +168,7 @@
                 </div>
             </div>
 
+            <!-- CATEGORY: SURVIVAL -->
             <div class="category-section">
                 <h2 class="category-title">Survival & Evolution</h2>
                 <div class="game-grid">
@@ -176,6 +178,7 @@
                 </div>
             </div>
 
+            <!-- CATEGORY: IO & ARCADE -->
             <div class="category-section">
                 <h2 class="category-title">IO & Arcade Classics</h2>
                 <div class="game-grid">
@@ -184,18 +187,20 @@
                     <div class="game-card" onclick="loadGame('Geometry Dash', 'https://geometrydashfullversion.io')">Geometry Dash</div>
                     <div class="game-card" onclick="loadGame('Bloxd.io', 'https://bloxd.io')">Bloxd.io</div>
                     <div class="game-card" onclick="loadGame('Krew.io', 'https://krew.io')">Krew.io</div>
+                    <div class="game-card" onclick="loadGame('Dashmentry.io', 'https://dashmentry.io')">Dashmentry.io</div>
                 </div>
             </div>
         </div>
+        <!-- FULL LIBRARY END -->
 
-        <footer>Version 1.20 | Sigma_Trees Official Site</footer>
+        <footer>Version 1.21 | Sigma_Trees Official Site</footer>
     </div>
 
-    <!-- Stealth Mode Overlay (Assignment Fake) -->
+    <!-- Stealth Mode Worksheet -->
     <div id="stealth-overlay">
         <h1>Assignment: Differential Equations</h1>
         <p id="math-display"></p>
-        <p><i>Instructions: Find the particular solution to the differential equation given the initial conditions. Show all integration steps clearly for full credit.</i></p>
+        <p><i>Instructions: Find the particular solution to the differential equation given the initial conditions. Show all steps clearly.</i></p>
     </div>
 
     <script>
@@ -203,9 +208,9 @@
         const LOCK_DURATION = 60 * 60 * 1000; 
         let escHoldTimer;
 
-        // Security Lockout Check
+        // SIGMA GUARD SYSTEM
         function checkLockout() {
-            const expiry = localStorage.getItem('sigma_lock_v20');
+            const expiry = localStorage.getItem('sigma_lock_v21');
             if (expiry && Date.now() < expiry) {
                 document.getElementById('lockout-screen').style.display = "block";
                 document.getElementById('main-content').style.display = "none";
@@ -218,23 +223,20 @@
                 const diff = expiry - Date.now();
                 const mins = Math.floor(diff / 60000);
                 const secs = Math.floor((diff % 60000) / 1000);
-                document.getElementById('timer-display').innerText = `SYSTEM RESTORE IN: ${mins}m ${secs}s`;
+                document.getElementById('timer-display').innerText = `SYSTEM RECOVERY IN: ${mins}m ${secs}s`;
                 if (diff <= 0) location.reload();
             }, 1000);
         }
 
-        // Proxy Launcher (Uses Bridge to avoid X-Frame errors)
+        // PROXY BRIDGE
         function launchProxy() {
             let input = document.getElementById('proxyURL').value.toLowerCase();
-            
             if (bannedList.some(word => input.includes(word))) {
-                localStorage.setItem('sigma_lock_v20', Date.now() + LOCK_DURATION);
+                localStorage.setItem('sigma_lock_v21', Date.now() + LOCK_DURATION);
                 checkLockout();
                 return;
             }
-
             if (input) {
-                // Bridge engine to unblock most sites
                 let bridge = "https://proxysite.com" + encodeURIComponent(input);
                 loadGame('Proxy Browser', bridge);
             }
@@ -245,7 +247,7 @@
             loadGame('Proxy Browser', bridge); 
         }
 
-        // Core Game Loading
+        // GAME CONTROLS
         function loadGame(name, url) {
             document.getElementById('current-game-name').innerText = name;
             document.getElementById('game-frame').src = url;
@@ -253,7 +255,6 @@
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
-        // Live Search Filter
         function searchGames() {
             let filter = document.getElementById('searchBar').value.toLowerCase();
             document.querySelectorAll('.game-card').forEach(card => {
@@ -266,7 +267,7 @@
             if (frame.requestFullscreen) frame.requestFullscreen();
         }
 
-        // Shortcut Listeners
+        // KEYBOARD SHORTCUTS
         window.addEventListener('keydown', (e) => {
             // [P] Stealth Mode
             if (e.key.toLowerCase() === 'p') {
@@ -275,7 +276,7 @@
                 if (overlay.style.display === "block") {
                     overlay.style.display = "none";
                 } else {
-                    math.innerText = `Calculate the General Solution for: dy/dx + ${Math.floor(Math.random()*20)}y = e^(${Math.floor(Math.random()*5)}x)`;
+                    math.innerText = `Problem: Solve dy/dx + ${Math.floor(Math.random()*15)}y = cos(${Math.floor(Math.random()*10)}x)`;
                     overlay.style.display = "block";
                 }
             }
@@ -285,7 +286,7 @@
                 toggleFullscreen();
             }
 
-            // Hold [ESC] for 2 seconds to close
+            // Hold [ESC] to close
             if (e.key === "Escape") {
                 escHoldTimer = setTimeout(() => {
                     document.getElementById('game-frame').src = "";
@@ -300,6 +301,7 @@
     </script>
 </body>
 </html>
+
 
 
 
