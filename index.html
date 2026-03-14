@@ -12,125 +12,133 @@
             --card: #064e3b;
         }
 
-        .stealth-active {
-            --bg: #ffffff;
-            --text: #000000;
-            --accent: #1a73e8;
-            --card: #f1f3f4;
-        }
-
         body { 
-            background-color: var(--bg); 
-            color: var(--text); 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            margin: 0; 
-            padding-bottom: 50px;
-            transition: 0.1s; /* Faster transition for less lag */
+            background-color: var(--bg); color: var(--text); 
+            font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 50px;
         }
 
-        .header { background: rgba(0,0,0,0.3); padding: 15px; border-bottom: 3px solid var(--accent); }
-        h1 { color: var(--accent); margin: 0; font-size: 1.8rem; }
+        .header { background: rgba(0,0,0,0.3); padding: 15px; border-bottom: 3px solid var(--accent); text-align: center; }
+        h1 { color: var(--accent); margin: 0; }
         
-        .nav-bar { margin: 15px 0; display: flex; justify-content: center; gap: 10px; }
-        button { 
-            background: var(--accent); border: none; color: white; padding: 10px 20px; 
-            border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.2s;
+        /* Category Menu */
+        .cat-menu { display: flex; justify-content: center; gap: 10px; padding: 20px; flex-wrap: wrap; }
+        .cat-btn { 
+            background: var(--card); border: 2px solid var(--accent); color: white; 
+            padding: 10px 20px; border-radius: 12px; cursor: pointer; font-weight: bold;
         }
-        button:hover { transform: scale(1.05); filter: brightness(1.2); }
+        .cat-btn:hover, .cat-btn.active { background: var(--accent); }
 
-        .search-box { margin-bottom: 20px; }
+        .search-box { text-align: center; margin-bottom: 20px; }
         #gameSearch { 
             padding: 12px; width: 300px; border-radius: 20px; border: 2px solid var(--accent);
-            background: rgba(0,0,0,0.2); color: white; outline: none; text-align: center;
+            background: rgba(0,0,0,0.2); color: white; text-align: center;
         }
 
         .gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; padding: 0 20px; }
         .game-card { 
             background: var(--card); width: 110px; padding: 15px; border-radius: 12px; 
-            cursor: pointer; border: 2px solid transparent; transition: 0.2s;
+            cursor: pointer; transition: 0.2s; text-align: center;
         }
-        .game-card:hover { border-color: var(--accent); transform: translateY(-5px); }
+        .game-card:hover { transform: translateY(-5px); border: 2px solid var(--accent); }
         .game-card span { display: block; font-size: 0.8rem; margin-top: 8px; font-weight: bold; }
 
-        /* Game Engine Wrapper */
+        /* Game Display */
         #game-container { 
-            width: 90%; max-width: 900px; height: 500px; margin: 25px auto; 
+            width: 90%; max-width: 900px; height: 550px; margin: 25px auto; 
             border: 5px solid var(--accent); border-radius: 15px; overflow: hidden; background: #000;
         }
         iframe { width: 100%; height: 100%; border: none; }
 
-        .version { position: fixed; bottom: 10px; right: 15px; font-size: 0.7rem; opacity: 0.6; }
-        
         /* Stealth Overlay */
         #math-overlay { 
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: white; color: black; z-index: 9999; justify-content: center; 
-            align-items: center; flex-direction: column; font-size: 2rem; text-align: center;
+            align-items: center; flex-direction: column; font-size: 2rem;
         }
     </style>
 </head>
 <body>
 
 <div id="math-overlay">
-    <h2>Calculus II: Weekly Assignment</h2>
-    <p id="math-q">Solve for x: 2x² - 8x + 6 = 0</p>
-    <p style="font-size: 1rem; color: #666;">Press 'P' to return to research</p>
+    <h2>Calculus II: Quiz 4</h2>
+    <p id="math-q">Find the limit as x approaches infinity of (1/x)</p>
+    <p style="font-size: 1rem; color: #888;">Press 'P' to resume research</p>
 </div>
 
 <div class="header">
-    <h1 id="main-title">Sigma_Trees Games</h1>
+    <h1>Sigma_Trees Games</h1>
+    <div style="margin-top:10px;">
+        <button onclick="toggleStealth()" style="background:#1a73e8; color:white; border:none; padding:8px 15px; border-radius:5px; cursor:pointer;">STEALTH (P)</button>
+        <button onclick="goFullscreen()" style="background:#d97706; color:white; border:none; padding:8px 15px; border-radius:5px; cursor:pointer;">FULL FULLSCREEN</button>
+    </div>
 </div>
 
-<div class="nav-bar">
-    <button onclick="toggleStealth()">STEALTH MODE (P)</button>
-    <button onclick="goFullscreen()">FULL FULLSCREEN</button>
+<div class="cat-menu">
+    <button class="cat-btn active" onclick="filterCat('all', this)">🌐 ALL</button>
+    <button class="cat-btn" onclick="filterCat('shooter', this)">🔫 SHOOTERS</button>
+    <button class="cat-btn" onclick="filterCat('io', this)">🧬 IO GAMES</button>
+    <button class="cat-btn" onclick="filterCat('classic', this)">🕹️ CLASSICS</button>
 </div>
 
 <div class="search-box">
-    <input type="text" id="gameSearch" placeholder="🔍 Search Math Resources..." onkeyup="search()">
+    <input type="text" id="gameSearch" placeholder="🔍 Search Resources..." onkeyup="search()">
 </div>
 
-<div class="gallery">
-    <!-- Row 1 -->
-    <div class="game-card" onclick="load('https://krew.io', 'Krew.io')">⛵<span>Krew.io</span></div>
-    <div class="game-card" onclick="load('https://craftnite.io', 'Craftnite')">⛏️<span>Craftnite.io</span></div>
-    <div class="game-card" onclick="load('https://bloxd.io', 'Bloxd.io')">🧱<span>Bloxd.io</span></div>
-    <div class="game-card" onclick="load('https://geometrydashfullversion.io', 'GD Full')">🟦<span>Geometry Dash</span></div>
-    
-    <!-- Row 2 -->
-    <div class="game-card" onclick="load('https://github.io', 'Monkey Mart')">🐒<span>Monkey Mart</span></div>
-    <div class="game-card" onclick="load('https://shellshock.io', 'Shell Shockers')">🥚<span>Shell Shock</span></div>
-    <div class="game-card" onclick="load('https://krunker.io', 'Krunker')">🎯<span>Krunker</span></div>
-    <div class="game-card" onclick="load('https://github.io', 'Gun Mayhem')">🔫<span>Gun Mayhem 1</span></div>
+<div class="gallery" id="gameGallery">
+    <!-- Shooters -->
+    <div class="game-card shooter" onclick="load('https://shellshock.io', 'Shell Shock')">🥚<span>Shell Shock</span></div>
+    <div class="game-card shooter" onclick="load('https://krunker.io', 'Krunker')">🎯<span>Krunker</span></div>
+    <div class="game-card shooter" onclick="load('https://github.io', 'Gun Mayhem')">🔫<span>Gun Mayhem</span></div>
+    <div class="game-card shooter" onclick="load('https://craftnite.io', 'Craftnite')">⛏️<span>Craftnite</span></div>
 
-    <!-- Row 3 -->
-    <div class="game-card" onclick="load('https://mope.io', 'Mope.io')">🐷<span>Mope.io</span></div>
-    <div class="game-card" onclick="load('https://flyordie.io', 'FlyOrDie')">🪰<span>FlyOrDie.io</span></div>
+    <!-- IO Games -->
+    <div class="game-card io" onclick="load('https://krew.io', 'Krew.io')">⛵<span>Krew.io</span></div>
+    <div class="game-card io" onclick="load('https://bloxd.io', 'Bloxd.io')">🧱<span>Bloxd.io</span></div>
+    <div class="game-card io" onclick="load('https://mope.io', 'Mope.io')">🐷<span>Mope.io</span></div>
+    <div class="game-card io" onclick="load('https://flyordie.io', 'FlyOrDie')">🪰<span>FlyOrDie.io</span></div>
+
+    <!-- Classics -->
+    <div class="game-card classic" onclick="load('https://geometrydashfullversion.io', 'Geometry Dash')">🟦<span>GD Full</span></div>
+    <div class="game-card classic" onclick="load('https://github.io', 'Monkey Mart')">🐒<span>Monkey Mart</span></div>
 </div>
-
-<h3 id="current-game" style="text-align:center; color:var(--accent); margin-top:20px;">v1.1.5 Resources Ready</h3>
 
 <div id="game-container">
     <iframe id="main-frame" src="about:blank" allow="fullscreen"></iframe>
 </div>
 
-<div class="version">Build: v1.1.5 | Sigma_Trees</div>
+<div style="text-align:center; opacity:0.5; font-size:0.8rem;">v1.1.6 | Hold ESC for 2s to exit Fullscreen</div>
 
 <script>
-    const mathQs = ["Solve for x: 3x + 12 = 45", "Find the derivative of f(x) = x³", "Calculate area: r=5, π=3.14", "Simplify: (x²+x)/x"];
-    
     function load(url, name) {
         document.getElementById('main-frame').src = url;
-        document.getElementById('current-game').innerText = "Resource: " + name;
+    }
+
+    function filterCat(cat, btn) {
+        // Update Buttons
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Filter Cards
+        let cards = document.querySelectorAll('.game-card');
+        cards.forEach(card => {
+            if (cat === 'all' || card.classList.contains(cat)) {
+                card.style.display = "block";
+            } else {
+                card.style.display = "none";
+            }
+        });
+    }
+
+    function search() {
+        let input = document.getElementById('gameSearch').value.toLowerCase();
+        document.querySelectorAll('.game-card').forEach(card => {
+            card.style.display = card.innerText.toLowerCase().includes(input) ? "block" : "none";
+        });
     }
 
     function toggleStealth() {
         const overlay = document.getElementById('math-overlay');
-        const isHidden = overlay.style.display === 'none' || overlay.style.display === '';
-        overlay.style.display = isHidden ? 'flex' : 'none';
-        if(isHidden) {
-            document.getElementById('math-q').innerText = mathQs[Math.floor(Math.random()*mathQs.length)];
-        }
+        overlay.style.display = (overlay.style.display === 'flex') ? 'none' : 'flex';
     }
 
     function goFullscreen() {
@@ -139,30 +147,21 @@
         else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
     }
 
-    // Hold ESC to exit Logic
+    // Key Listeners
     let escTimer;
     document.addEventListener('keydown', (e) => {
         if (e.key.toLowerCase() === 'p') toggleStealth();
-        
         if (e.key === "Escape") {
-            // Browsers force a message, but we add a 1.5s delay to the actual script exit
             escTimer = setTimeout(() => {
                 if (document.fullscreenElement) document.exitFullscreen();
-            }, 1500); 
+            }, 2000); // 2 Seconds hold
         }
     });
 
     document.addEventListener('keyup', (e) => {
         if (e.key === "Escape") clearTimeout(escTimer);
     });
-
-    function search() {
-        let input = document.getElementById('gameSearch').value.toLowerCase();
-        let cards = document.querySelectorAll('.game-card');
-        cards.forEach(card => {
-            card.style.display = card.innerText.toLowerCase().includes(input) ? "" : "none";
-        });
-    }
 </script>
 </body>
 </html>
+
