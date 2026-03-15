@@ -25,24 +25,30 @@
             --bg-color: #0f050f; --card-bg: #261026; --accent: #9333ea; 
             --highlight: #c084fc; --shadow: rgba(147, 51, 234, 0.35);
         }
-
-       body {
+body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--bg-color);
     color: var(--text);
     margin: 0 auto; 
-    max-width: 1200px; 
-    
-    /* 1. Increases space at the top */
-    padding: 120px 20px; 
+    max-width: 100%; /* Makes the game box wider across the screen */
 
-    /* 2. Shinks the site to 90% size (the zoom out) */
+    padding: 80px 40px; /* Space at top and sides */
+    
+    /* Small zoom out effect */
     transform: scale(0.9); 
     transform-origin: top center;
 
     overflow-x: hidden;
     transition: background-color 0.7s cubic-bezier(0.4, 0, 0.2, 1), color 0.7s;
-    text-align: center;
+    
+    /* 1. MOVES WORDS TO THE LEFT */
+    text-align: left; 
+
+    /* 2. MAKES WORDS SMALLER */
+    font-size: 0.85rem; 
+}
+
+
 }
 
         }
