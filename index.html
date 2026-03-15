@@ -25,32 +25,15 @@
             --bg-color: #0f050f; --card-bg: #261026; --accent: #9333ea; 
             --highlight: #c084fc; --shadow: rgba(147, 51, 234, 0.35);
         }
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text);
-    margin: 0 auto; 
-    max-width: 100%; /* Makes the game box wider across the screen */
 
-    padding: 80px 40px; /* Space at top and sides */
-    
-    /* Small zoom out effect */
-    transform: scale(0.9); 
-    transform-origin: top center;
-
-    overflow-x: hidden;
-    transition: background-color 0.7s cubic-bezier(0.4, 0, 0.2, 1), color 0.7s;
-    
-    /* 1. MOVES WORDS TO THE LEFT */
-    text-align: left; 
-
-    /* 2. MAKES WORDS SMALLER */
-    font-size: 0.85rem; 
-}
-
-
-}
-
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text);
+            margin: 0 auto; max-width: 1200px; padding: 50px 20px;
+            overflow-x: hidden;
+            transition: background-color 0.7s cubic-bezier(0.4, 0, 0.2, 1), color 0.7s;
+            text-align: center;
         }
 
         /* NUCLEAR SIGMA GUARD OVERLAY */
@@ -83,7 +66,7 @@ body {
             animation: slideDown 0.6s ease-out;
         }
         @keyframes slideDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
-        #game-frame { width: 100%; height: 500px; border: none; background: #fff; border-radius: 15px; }
+        #game-frame { width: 100%; height: 780px; border: none; background: #fff; border-radius: 15px; }
 
         /* ADVANCED SEARCH BAR */
         #searchBar {
@@ -112,7 +95,7 @@ body {
 
         .game-card {
             background-color: var(--card-bg); border: 2px solid var(--accent);
-            border-radius: 25px; width: 450px; padding: 15px 25px;
+            border-radius: 25px; width: 240px; padding: 50px 25px;
             cursor: pointer; position: relative;
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             box-shadow: 0 10px 20px rgba(0,0,0,0.4);
@@ -159,8 +142,8 @@ body {
 
     <div id="main-content">
         <header>
-          <h1 style="font-size: 5rem; margin-bottom: 10px; color: var(--highlight); text-shadow: 7px 7px 0px #000; border-bottom: 6px solid var(--highlight); display: inline-block; padding-bottom: 10px;">Sigma_Trees Games</h1>
-          <p style="color: #888; font-size: 1.4rem; font-style: italic;">"U might have to click on a game once or twice for it to work"</p>
+            <h1 style="font-size: 6rem; margin-bottom: 10px; color: var(--highlight); text-shadow: 7px 7px 0px #000;">Sigma_Trees Games</h1>
+            <p style="color: #888; font-size: 1.4rem; font-style: italic;">"U might have to click on a game once or twice for it to work"</p>
         </header>
 
         <div class="theme-selector">
@@ -324,7 +307,7 @@ body {
         }
 
         function loadProxy() {
-            loadGame('Sigma Supreme Browser', 'https://sigma-trees--catdogg561.replit.app', 'c-proxy');
+            loadGame('Sigma Supreme Browser', 'https://sigma-trees--catdogg561.replit.app/', 'c-proxy');
         }
 
         function loadGame(name, url, id) {
